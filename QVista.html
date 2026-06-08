@@ -1173,7 +1173,8 @@ tbody tr:hover td{background:var(--s2)}
       </button>
     </div>
     <div class="topbar-right">
-      <button class="topbar-btn" id="btn-sync" onclick="gsSyncManual()" title="Sincronizar con Google Sheets">⟳ Sincronizar</button>
+      <button class="topbar-btn" id="btn-sp-login" onclick="spLogin()" style="background:#1A4F8A;color:#fff;border-color:#1A4F8A;font-weight:600">Conectar SharePoint</button>
+      <button class="topbar-btn" id="btn-sync" onclick="gsSyncManual()" title="Sincronizar con SharePoint">⟳ Sincronizar</button>
       <button class="topbar-btn" id="btn-config" onclick="toggleConfig()">⚙ Config. listas</button>
     </div>
   </div>
@@ -2236,19 +2237,7 @@ async function gsSyncManual(){
   var _EA = enterApp;
   enterApp = async function(){
     await _EA();
-    /* Agregar botón Conectar SharePoint a la barra superior */
-    var tbr = document.querySelector('.topbar-right');
-    if(tbr && !document.getElementById('btn-sp-login')){
-      var btn = document.createElement('button');
-      btn.id = 'btn-sp-login';
-      btn.className = 'topbar-btn';
-      btn.textContent = 'Conectar SharePoint';
-      btn.style.background = '#1A4F8A';
-      btn.style.color = '#fff';
-      btn.style.borderColor = '#1A4F8A';
-      btn.onclick = spLogin;
-      tbr.prepend(btn);
-    }
+    /* Botón Conectar SharePoint ya está en el HTML */
     /* Cargar MSAL si no está disponible, luego inicializar */
     function doInit(){
       spInit().then(function(ok){
