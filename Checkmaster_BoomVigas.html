@@ -1,0 +1,2245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHECKMASTER · BOOM & VIGAS</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════
+   ROOT VARIABLES
+══════════════════════════════════════════════ */
+:root{
+  --bg:#060810;--s1:#0c1018;--s2:#111720;--s3:#18212e;
+  --brd:#1e2a3a;--brd2:#2a3d55;
+  --blue:#4f8ef7;--blue2:#3a6fd4;
+  --teal:#2dd4bf;--teal2:#14b8a6;
+  --amber:#f59e0b;--amber2:#d97706;
+  --rose:#f43f5e;--rose2:#e11d48;
+  --violet:#8b5cf6;--violet2:#7c3aed;
+  --green:#22c55e;--green2:#16a34a;
+  --orange:#f97316;
+  --txt:#e2eaf6;--muted:#4a6280;--muted2:#7a9ab8;
+  --f:'Plus Jakarta Sans',sans-serif;
+  --f2:'Space Grotesk',sans-serif;
+  --r:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow-x:hidden}
+body{background:var(--bg);color:var(--txt);font-family:var(--f);text-transform:uppercase}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--s1)}
+::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:3px}
+
+/* ══════════════════════════════════════════════
+   LANDING
+══════════════════════════════════════════════ */
+#landing{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--bg);
+  display:flex;flex-direction:column;overflow:hidden;
+  isolation:isolate;
+}
+/* animated orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0}
+.orb1{width:800px;height:800px;top:-300px;left:-200px;
+  background:radial-gradient(circle,rgba(79,142,247,.13) 0%,transparent 70%);
+  animation:oF1 14s ease-in-out infinite}
+.orb2{width:600px;height:600px;bottom:-200px;right:-150px;
+  background:radial-gradient(circle,rgba(45,212,191,.1) 0%,transparent 70%);
+  animation:oF2 16s ease-in-out infinite}
+.orb3{width:500px;height:500px;top:40%;left:45%;transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(245,158,11,.06) 0%,transparent 70%);
+  animation:oF3 12s ease-in-out infinite}
+@keyframes oF1{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,40px)}}
+@keyframes oF2{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,-30px)}}
+@keyframes oF3{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.2)}}
+.ld-grid{
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(79,142,247,.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(79,142,247,.028) 1px,transparent 1px);
+  background-size:64px 64px;
+}
+/* scan line */
+.ld-scan{
+  position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(45,212,191,.4),transparent);
+  animation:scan 6s linear infinite;z-index:0;
+}
+@keyframes scan{0%{top:-1%;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:101%;opacity:0}}
+
+/* topbar landing */
+.ld-bar{
+  position:relative;z-index:10;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;height:62px;
+  border-bottom:1px solid rgba(79,142,247,.12);
+  background:rgba(6,8,16,.75);backdrop-filter:blur(20px);
+}
+.ld-logo-wrap{display:flex;align-items:center;gap:12px}
+.ld-logo{
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--f2);font-size:11px;font-weight:800;color:#fff;
+  box-shadow:0 0 24px rgba(79,142,247,.5);position:relative;flex-shrink:0;
+}
+.ld-logo::after{
+  content:'';position:absolute;inset:-2px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(79,142,247,.4),rgba(45,212,191,.3));
+  z-index:-1;
+}
+.ld-brand-col{display:flex;flex-direction:column;gap:1px}
+.ld-brand-name{font-family:var(--f2);font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--txt)}
+.ld-brand-sub{font-size:8px;font-weight:600;letter-spacing:.18em;color:rgba(79,142,247,.7)}
+.ld-bar-right{display:flex;align-items:center;gap:12px}
+.ld-status{
+  display:flex;align-items:center;gap:7px;
+  background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.25);
+  border-radius:20px;padding:5px 14px;
+  font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.16em;color:var(--green);
+}
+.ld-status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.ld-ver{font-family:var(--f2);font-size:9px;color:rgba(74,98,128,.7);letter-spacing:.14em}
+
+/* hero */
+.ld-hero{
+  position:relative;z-index:5;flex:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:1.5rem 2rem 0;text-align:center;
+}
+.ld-eyechip{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(79,142,247,.07);border:1px solid rgba(79,142,247,.2);
+  border-radius:20px;padding:6px 18px;margin-bottom:1.4rem;
+  font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.2em;color:rgba(79,142,247,.9);
+  animation:fadeUp .6s ease both;
+}
+.ld-eyechip-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);box-shadow:0 0 8px rgba(79,142,247,.9);flex-shrink:0}
+.ld-eyebrow{font-family:var(--f2);font-size:10px;font-weight:700;letter-spacing:.28em;color:rgba(122,154,184,.55);margin-bottom:.7rem;line-height:2;animation:fadeUp .6s .08s ease both}
+.ld-title-wrap{margin-bottom:1.2rem;animation:fadeUp .6s .14s ease both}
+.ld-t1{display:block;font-family:var(--f2);font-size:clamp(44px,7vw,88px);font-weight:700;letter-spacing:.03em;color:var(--txt);line-height:.95}
+.ld-t2{display:block;font-family:var(--f2);font-size:clamp(44px,7vw,88px);font-weight:700;letter-spacing:.03em;line-height:.95;
+  background:linear-gradient(135deg,var(--blue) 0%,var(--teal) 60%,var(--amber) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.ld-div{display:flex;align-items:center;gap:12px;width:100%;max-width:520px;margin:0 auto 1.2rem;animation:fadeUp .6s .2s ease both}
+.ld-dline{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(79,142,247,.4),transparent)}
+.ld-ddot{width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0;box-shadow:0 0 16px rgba(245,158,11,.9);animation:dotG 2.5s ease-in-out infinite}
+@keyframes dotG{0%,100%{box-shadow:0 0 10px rgba(245,158,11,.8),0 0 24px rgba(245,158,11,.3)}50%{box-shadow:0 0 22px rgba(245,158,11,1),0 0 44px rgba(245,158,11,.6),0 0 60px rgba(79,142,247,.2)}}
+.ld-tagline{font-family:var(--f2);font-size:10px;font-weight:700;letter-spacing:.2em;color:rgba(122,154,184,.5);margin-bottom:1.8rem;line-height:2;animation:fadeUp .6s .24s ease both}
+
+/* stats bar */
+.ld-stats{
+  display:flex;align-items:stretch;gap:0;
+  background:rgba(12,16,24,.85);border:1px solid rgba(79,142,247,.15);
+  border-radius:18px;margin-bottom:2rem;overflow:hidden;backdrop-filter:blur(10px);
+  animation:fadeUp .6s .3s ease both;
+}
+.ld-si{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:18px 34px;border-right:1px solid rgba(79,142,247,.1);transition:background .2s}
+.ld-si:last-child{border-right:none}
+.ld-si:hover{background:rgba(79,142,247,.06)}
+.ld-sn{font-family:var(--f2);font-size:24px;font-weight:700;line-height:1}
+.ld-sn1{background:linear-gradient(135deg,var(--blue),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ld-sn2{color:var(--amber)}
+.ld-sn3{color:var(--teal)}
+.ld-sn4{color:var(--txt)}
+.ld-sl{font-size:8px;font-weight:700;letter-spacing:.2em;color:rgba(122,154,184,.5);line-height:1.9}
+
+/* CTA */
+.ld-cta{margin-bottom:1.8rem;animation:fadeUp .6s .36s ease both}
+.ld-btn{
+  position:relative;display:inline-flex;align-items:center;gap:14px;
+  background:linear-gradient(135deg,var(--blue),var(--blue2) 50%,#2a55b0 100%);
+  color:#fff;border:none;border-radius:16px;
+  font-family:var(--f2);font-size:12px;font-weight:700;letter-spacing:.2em;
+  padding:16px 52px;cursor:pointer;transition:all .28s;overflow:hidden;
+  box-shadow:0 4px 32px rgba(79,142,247,.55),inset 0 1px 0 rgba(255,255,255,.15);
+}
+.ld-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12) 0%,transparent 60%)}
+.ld-btn:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 16px 52px rgba(79,142,247,.7),0 0 0 4px rgba(79,142,247,.15)}
+.ld-btn:active{transform:scale(.97)}
+.ld-btn-arrow{transition:transform .25s;flex-shrink:0}
+.ld-btn:hover .ld-btn-arrow{transform:translateX(6px)}
+
+/* features */
+.ld-feats{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;animation:fadeUp .6s .42s ease both}
+.ld-fp{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(12,16,24,.75);border:1px solid rgba(255,255,255,.07);
+  border-radius:10px;padding:7px 15px;
+  font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.12em;color:rgba(122,154,184,.7);
+  transition:all .2s;backdrop-filter:blur(8px);
+}
+.ld-fp:hover{background:rgba(79,142,247,.08);border-color:rgba(79,142,247,.25);color:var(--txt)}
+.ld-fi{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+
+/* footer landing */
+.ld-footer{
+  position:relative;z-index:10;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;height:46px;
+  border-top:1px solid rgba(79,142,247,.1);
+  background:rgba(6,8,16,.65);
+}
+.ld-fl,.ld-fr{font-family:var(--f2);font-size:9px;font-weight:600;letter-spacing:.12em;color:rgba(74,98,128,.7);line-height:2}
+
+#landing.exiting{animation:ldExit .4s ease forwards}
+@keyframes ldExit{0%{opacity:1;transform:scale(1) translateY(0)}100%{opacity:0;transform:scale(1.03) translateY(-8px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════════════════════
+   APP LAYOUT
+══════════════════════════════════════════════ */
+#app{display:none;height:100vh;flex-direction:column;background:var(--bg);isolation:isolate;position:relative;z-index:1}
+#app.visible{display:flex}
+
+/* TOPBAR */
+.topbar{
+  height:58px;background:#080c12;
+  border-bottom:1px solid var(--brd);
+  display:flex;align-items:center;padding:0 1.5rem;gap:0;
+  position:sticky;top:0;z-index:100;flex-shrink:0;
+}
+.tb-brand{display:flex;align-items:center;gap:10px;margin-right:2rem;flex-shrink:0}
+.tb-logo{
+  width:32px;height:32px;border-radius:9px;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--f2);font-size:10px;font-weight:800;color:#fff;
+  box-shadow:0 0 18px rgba(79,142,247,.45);flex-shrink:0;cursor:pointer;
+  transition:transform .2s;
+}
+.tb-logo:hover{transform:scale(1.05)}
+.tb-name{font-family:var(--f2);font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--txt)}
+.tb-tabs{display:flex;gap:2px;flex:1}
+.tb-tab{
+  height:58px;padding:0 18px;background:none;border:none;
+  font-family:var(--f2);font-size:10px;font-weight:700;letter-spacing:.12em;
+  color:var(--muted2);cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;gap:8px;
+  border-bottom:2px solid transparent;
+  white-space:nowrap;
+}
+.tb-tab:hover{color:var(--txt);background:rgba(255,255,255,.03)}
+.tb-tab.active{color:var(--blue);border-bottom-color:var(--blue);background:rgba(79,142,247,.05)}
+.tb-tab svg{opacity:.7}
+.tb-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.tb-btn{
+  display:flex;align-items:center;gap:7px;
+  background:var(--s2);border:1px solid var(--brd);border-radius:9px;
+  color:var(--muted2);font-family:var(--f2);font-size:10px;font-weight:700;
+  letter-spacing:.1em;padding:7px 14px;cursor:pointer;transition:all .15s;
+  white-space:nowrap;
+}
+.tb-btn:hover{background:var(--s3);color:var(--txt);border-color:var(--brd2)}
+.tb-btn-primary{
+  background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;
+  border-color:var(--blue);box-shadow:0 2px 14px rgba(79,142,247,.3);
+}
+.tb-btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(79,142,247,.45)}
+.tb-home{width:36px;height:36px;border-radius:9px;background:var(--s2);border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;color:var(--muted2);flex-shrink:0}
+.tb-home:hover{background:var(--s3);color:var(--txt);border-color:var(--brd2)}
+
+/* MAIN AREA */
+.app-main{flex:1;overflow-y:auto;background:var(--bg);position:relative;isolation:isolate}
+
+.view{display:none;position:relative;z-index:1;padding:1.8rem 2rem;max-width:1400px;margin:0 auto}
+.view.active{display:block}
+
+/* ══ PAGE HEADER ══ */
+.page-header{margin-bottom:1.8rem;padding-bottom:18px;border-bottom:1px solid var(--brd);position:relative;z-index:2}
+.page-eyebrow{font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.24em;color:var(--blue);margin-bottom:6px}
+.page-title{font-family:var(--f2);font-size:22px;font-weight:700;letter-spacing:.06em;color:#e8f2ff;line-height:1.4;text-shadow:none}
+.page-sub{font-size:10px;color:#7a9ab8;margin-top:4px;letter-spacing:.1em;line-height:2.2;position:relative;z-index:2;text-shadow:none}
+
+/* ══ CARDS ══ */
+.card{background:var(--s1);border:1px solid var(--brd);border-radius:16px;padding:1.2rem 1.3rem;transition:border-color .2s}
+.card:hover{border-color:var(--brd2)}
+.card-hd{font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.2em;color:var(--muted);margin-bottom:.9rem;line-height:2.4}
+
+/* ══ METRICS ══ */
+.metrics{display:grid;gap:12px;margin-bottom:1.2rem}
+.metrics-4{grid-template-columns:repeat(4,1fr)}
+.metrics-5{grid-template-columns:repeat(5,1fr)}
+.metric{background:var(--s1);border:1px solid var(--brd);border-radius:16px;padding:1rem 1.1rem;position:relative;overflow:hidden;transition:all .2s}
+.metric:hover{transform:translateY(-2px)}
+.metric::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:16px 16px 0 0}
+.m-c-blue::before{background:linear-gradient(90deg,var(--blue),var(--teal))}
+.m-c-teal::before{background:linear-gradient(90deg,var(--teal),#4ade80)}
+.m-c-amber::before{background:linear-gradient(90deg,var(--amber),#fcd34d)}
+.m-c-rose::before{background:linear-gradient(90deg,var(--rose),#f87171)}
+.m-c-green::before{background:linear-gradient(90deg,var(--green),#86efac)}
+.m-c-violet::before{background:linear-gradient(90deg,var(--violet),#a78bfa)}
+.m-lbl{font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.18em;color:var(--muted);margin-bottom:6px;line-height:2.2}
+.m-val{font-family:var(--f2);font-size:28px;font-weight:700;line-height:1.2;color:var(--txt)}
+.m-sub{font-size:10px;color:var(--muted2);margin-top:4px;letter-spacing:.08em;line-height:2}
+.m-c-blue .m-val{background:linear-gradient(135deg,var(--blue),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.m-c-teal .m-val{color:var(--teal)}
+.m-c-amber .m-val{color:var(--amber)}
+.m-c-rose .m-val{color:var(--rose)}
+.m-c-green .m-val{color:var(--green)}
+.m-c-violet .m-val{color:var(--violet)}
+
+/* ══ FORM ══ */
+.fcard{background:var(--s1);border:1px solid var(--brd);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:14px}
+.fcard-title{font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.2em;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px;line-height:2.4}
+.fcard-title::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+.fgrid{display:flex;flex-direction:column;gap:12px}
+.fgrid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fgrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.fg{display:flex;flex-direction:column;gap:5px}
+.flabel{font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.18em;color:var(--muted2);display:flex;align-items:center;gap:6px;line-height:2.2}
+.flabel em{color:var(--rose);font-style:normal}
+.finput,.fselect{
+  background:var(--s2);border:1px solid var(--brd);border-radius:9px;
+  color:var(--txt);font-family:var(--f2);font-size:11px;font-weight:600;letter-spacing:.06em;
+  padding:9px 13px;outline:none;transition:border-color .15s,box-shadow .15s;
+  width:100%;text-transform:uppercase;line-height:2.0;
+}
+.finput:focus,.fselect:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,142,247,.12)}
+.finput::placeholder{color:var(--muted);opacity:.55;font-size:10px;letter-spacing:.08em}
+
+/* ══ CHECKLIST TABLE ══ */
+.cl-section-header{
+  display:flex;align-items:center;gap:12px;padding:10px 16px;
+  background:linear-gradient(90deg,rgba(79,142,247,.08),transparent);
+  border:1px solid rgba(79,142,247,.15);border-radius:10px;
+  margin-bottom:8px;
+}
+.cl-section-letter{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--f2);font-size:13px;font-weight:800;color:#fff;flex-shrink:0;
+}
+.cl-section-name{font-family:var(--f2);font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--txt)}
+.cl-table-wrap{background:var(--s1);border:1px solid var(--brd);border-radius:14px;overflow:hidden;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.2)}
+.cl-table{width:100%;border-collapse:collapse}
+.cl-th{background:var(--s2);padding:10px 12px;text-align:center;font-family:var(--f2);font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.18em;border-bottom:1px solid var(--brd);white-space:nowrap;line-height:2.3}
+.cl-th:first-child{text-align:left}
+.cl-td{padding:12px 12px;border-bottom:1px solid rgba(30,42,58,.5);font-family:var(--f2);font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--txt);vertical-align:middle;line-height:2.1}
+.cl-td:last-child{border-right:none}
+.cl-tr:last-child .cl-td{border-bottom:none}
+.cl-tr:hover .cl-td{background:rgba(79,142,247,.03)}
+.cl-num{font-size:10px;color:var(--muted2);font-weight:700}
+.cl-desc{color:var(--txt)}
+.cl-radio-group{display:flex;gap:8px;justify-content:center}
+.cl-radio{display:none}
+.cl-radio-lbl{
+  width:34px;height:34px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .18s;font-size:14px;
+  border:1px solid var(--brd);background:var(--s2);
+}
+.cl-radio-lbl:hover{transform:scale(1.08)}
+.cl-radio.exc:checked+.cl-radio-lbl{background:rgba(34,197,94,.18);border-color:var(--green);box-shadow:0 0 12px rgba(34,197,94,.3)}
+.cl-radio.sat:checked+.cl-radio-lbl{background:rgba(79,142,247,.18);border-color:var(--blue);box-shadow:0 0 12px rgba(79,142,247,.3)}
+.cl-radio.def:checked+.cl-radio-lbl{background:rgba(245,158,11,.18);border-color:var(--amber);box-shadow:0 0 12px rgba(245,158,11,.3)}
+.cl-radio.cri:checked+.cl-radio-lbl{background:rgba(244,63,94,.18);border-color:var(--rose);box-shadow:0 0 12px rgba(244,63,94,.3)}
+.cl-obs-input{
+  background:var(--s2);border:1px solid var(--brd);border-radius:7px;
+  color:var(--txt);font-family:var(--f2);font-size:10px;font-weight:600;
+  letter-spacing:.04em;padding:7px 10px;outline:none;
+  transition:border-color .15s;width:100%;text-transform:uppercase;
+  min-width:180px;
+}
+.cl-obs-input:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(79,142,247,.1)}
+.cl-penaliz{
+  font-family:var(--f2);font-size:12px;font-weight:700;
+  text-align:center;padding:4px 8px;border-radius:6px;min-width:50px;
+}
+.pen-0{color:var(--green);background:rgba(34,197,94,.1)}
+.pen-3{color:var(--blue);background:rgba(79,142,247,.1)}
+.pen-10{color:var(--amber);background:rgba(245,158,11,.1)}
+.pen-25{color:var(--rose);background:rgba(244,63,94,.1)}
+
+/* score bar */
+.score-bar-wrap{background:var(--s1);border:1px solid var(--brd);border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:16px}
+.score-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.score-label{font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.2em;color:var(--muted)}
+.score-num{font-family:var(--f2);font-size:26px;font-weight:700;line-height:1.2}
+.score-bar{height:6px;background:var(--s3);border-radius:3px;overflow:hidden}
+.score-fill{height:100%;border-radius:3px;transition:width .6s ease}
+
+/* ══ BADGES ══ */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:6px;font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.12em;line-height:2.0}
+.badge-excelente{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.25)}
+.badge-conforme{background:rgba(79,142,247,.12);color:var(--blue);border:1px solid rgba(79,142,247,.25)}
+.badge-noconforme{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
+.badge-critico{background:rgba(244,63,94,.12);color:var(--rose);border:1px solid rgba(244,63,94,.25)}
+.badge-semaforo-verde{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.badge-semaforo-amarillo{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2)}
+.badge-semaforo-naranja{background:rgba(249,115,22,.1);color:var(--orange);border:1px solid rgba(249,115,22,.2)}
+.badge-semaforo-rojo{background:rgba(244,63,94,.1);color:var(--rose);border:1px solid rgba(244,63,94,.2)}
+
+/* ══ TABLE GENERIC ══ */
+.tbl-wrap{background:var(--s1);border:1px solid var(--brd);border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+table{width:100%;border-collapse:collapse}
+th{background:var(--s2);padding:11px 12px;text-align:left;font-family:var(--f2);font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.2em;border-bottom:1px solid var(--brd);white-space:nowrap;line-height:2.3}
+td{padding:12px 12px;border-bottom:1px solid rgba(30,42,58,.4);font-family:var(--f2);font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--txt);line-height:2.1}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(79,142,247,.025)}
+
+/* ══ CHARTS ══ */
+.chart-grid{display:grid;gap:14px;margin-bottom:14px}
+.chart-2{grid-template-columns:1fr 1fr}
+.chart-3{grid-template-columns:1fr 1fr 1fr}
+.chart-13{grid-template-columns:1.2fr 1fr 1fr}
+
+/* ══ PROGRESS BAR ══ */
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.bar-name{font-family:var(--f2);font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--muted2);min-width:140px;line-height:2.0}
+.bar-track{flex:1;height:6px;background:var(--s3);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;transition:width .6s ease}
+.bar-val{font-family:var(--f2);font-size:10px;font-weight:700;color:var(--muted2);min-width:40px;text-align:right}
+
+/* ══ RANKING CARD ══ */
+.rank-card{display:flex;align-items:center;gap:12px;background:var(--s1);border:1px solid var(--brd);border-radius:12px;padding:12px 16px;transition:all .2s}
+.rank-card:hover{border-color:var(--brd2);transform:translateX(3px)}
+.rank-num{font-family:var(--f2);font-size:18px;font-weight:800;color:var(--muted);width:32px;text-align:center;flex-shrink:0}
+.rank-1 .rank-num{color:var(--amber)}
+.rank-2 .rank-num{color:var(--muted2)}
+.rank-3 .rank-num{color:var(--orange)}
+.rank-name{flex:1;font-family:var(--f2);font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--txt);line-height:2.0}
+.rank-insp{font-size:9px;color:var(--muted2);letter-spacing:.06em}
+.rank-score{font-family:var(--f2);font-size:20px;font-weight:700;color:var(--blue)}
+.rank-note{font-size:9px;color:var(--muted);text-align:right}
+
+/* ══ MODAL ══ */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(4,6,12,.85);z-index:2000;backdrop-filter:blur(6px);overflow-y:auto;padding:1.5rem 1rem}
+.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+.modal{background:var(--s1);border:1px solid var(--brd);border-radius:18px;max-width:680px;width:100%;padding:1.75rem;box-shadow:0 20px 60px rgba(0,0,0,.6);animation:mUp .3s cubic-bezier(.16,1,.3,1)}
+/* Modal de detalle de inspección: más ancho y con scroll interno */
+#modal-detalle .modal{max-width:960px;display:flex;flex-direction:column;max-height:calc(100vh - 3rem)}
+#modal-detalle .modal-header{flex-shrink:0}
+#modal-detalle .modal-footer{flex-shrink:0}
+#modal-det-body{overflow-y:auto;flex:1;padding-right:4px;}
+@keyframes mUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.modal-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.3rem;padding-bottom:14px;border-bottom:1px solid var(--brd)}
+.modal-title{font-family:var(--f2);font-size:14px;font-weight:700;letter-spacing:.08em;color:var(--txt)}
+.modal-sub{font-size:10px;color:var(--muted2);margin-top:4px;letter-spacing:.1em;line-height:2.2}
+.modal-close{background:var(--s3);border:1px solid var(--brd);border-radius:8px;padding:6px 12px;cursor:pointer;color:var(--muted2);font-family:var(--f2);font-size:11px;font-weight:700;transition:all .15s;flex-shrink:0}
+.modal-close:hover{background:rgba(244,63,94,.12);color:var(--rose);border-color:rgba(244,63,94,.3)}
+.modal-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:1.2rem;padding-top:14px;border-top:1px solid var(--brd)}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;border:none;border-radius:10px;padding:10px 24px;cursor:pointer;font-family:var(--f2);font-size:11px;font-weight:700;letter-spacing:.14em;transition:all .2s;box-shadow:0 4px 16px rgba(79,142,247,.3);line-height:1.9}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(79,142,247,.45)}
+.btn-secondary{background:transparent;color:var(--muted2);border:1px solid var(--brd);border-radius:10px;padding:9px 18px;cursor:pointer;font-family:var(--f2);font-size:11px;font-weight:700;letter-spacing:.1em;transition:all .15s;line-height:1.9}
+.btn-secondary:hover{background:var(--s3);color:var(--txt)}
+.btn-danger{background:rgba(244,63,94,.12);color:var(--rose);border:1px solid rgba(244,63,94,.25);border-radius:10px;padding:9px 18px;cursor:pointer;font-family:var(--f2);font-size:11px;font-weight:700;letter-spacing:.1em;transition:all .15s;line-height:1.9}
+.btn-danger:hover{background:rgba(244,63,94,.22);border-color:rgba(244,63,94,.5)}
+
+/* ══ TOAST ══ */
+#toast{position:fixed;bottom:24px;right:24px;z-index:5000;display:flex;align-items:center;gap:10px;background:var(--s2);border:1px solid var(--brd2);border-radius:12px;padding:12px 18px;font-family:var(--f2);font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--txt);box-shadow:0 8px 24px rgba(0,0,0,.4);transform:translateY(80px);opacity:0;transition:all .3s ease}
+#toast.show{transform:translateY(0);opacity:1}
+#toast-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* ══ RUBRICA TABLE ══ */
+.rubrica-table{width:100%;border-collapse:collapse;margin-bottom:1rem}
+.rubrica-table th{background:var(--s2);padding:9px 14px;font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.18em;color:var(--muted);border-bottom:1px solid var(--brd)}
+.rubrica-table td{padding:10px 14px;border-bottom:1px solid rgba(30,42,58,.4);font-family:var(--f2);font-size:11px;font-weight:600;letter-spacing:.06em;line-height:2.1}
+.rubrica-table tr:last-child td{border-bottom:none}
+
+/* ══ RECO TEXTAREA ══ */
+.ftextarea{background:var(--s2);border:1px solid var(--brd);border-radius:9px;color:var(--txt);font-family:var(--f2);font-size:11px;font-weight:600;letter-spacing:.06em;padding:9px 13px;outline:none;transition:border-color .15s,box-shadow .15s;width:100%;text-transform:uppercase;line-height:2.0;resize:vertical;min-height:80px}
+.ftextarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,142,247,.12)}
+
+.hrs-box{background:var(--s3);border:1px solid var(--brd);border-radius:9px;padding:9px 13px;font-family:var(--f2);font-size:14px;font-weight:700;color:var(--teal);letter-spacing:.06em;line-height:2.0}
+.section-divider{height:1px;background:var(--brd);margin:1.5rem 0}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.fl-row{display:flex;gap:10px;align-items:center}
+
+/* ── Imágenes por ítem del checklist — Bloque A ── */
+/* La celda de evidencia tiene ancho fijo absoluto: nunca expande la fila */
+.cl-td-evidencia{
+  width:90px;min-width:90px;max-width:90px;
+  vertical-align:middle;
+  padding:6px 8px !important;
+}
+.cl-img-wrap{
+  display:flex;align-items:center;gap:3px;
+  flex-wrap:nowrap;
+  overflow-x:auto;
+  overflow-y:hidden;
+  width:74px;max-width:74px;
+  padding-bottom:2px;
+  scrollbar-width:thin;
+  scrollbar-color:var(--brd2) transparent;
+}
+.cl-img-wrap::-webkit-scrollbar{height:3px;}
+.cl-img-wrap::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:2px;}
+.cl-img-thumb{
+  width:32px;height:32px;flex-shrink:0;
+  object-fit:cover;border-radius:4px;
+  border:1px solid var(--brd);cursor:pointer;transition:transform .15s;
+}
+.cl-img-thumb:hover{ transform:scale(1.1); }
+/* botón + : solo visible cuando no hay imágenes */
+.cl-img-add{
+  width:32px;height:32px;flex-shrink:0;
+  border-radius:4px;border:1px dashed rgba(91,156,246,.45);
+  background:rgba(91,156,246,.05);color:var(--blue);
+  font-size:18px;line-height:32px;text-align:center;
+  cursor:pointer;transition:all .15s;display:block;
+  margin-top:4px;
+}
+.cl-img-add:hover{ background:rgba(91,156,246,.14);border-color:var(--blue); }
+.cl-img-add.hidden{ display:none; }
+.cl-img-lightbox{ position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9000;display:flex;align-items:center;justify-content:center; }
+.cl-img-lightbox img{ max-width:90vw;max-height:90vh;border-radius:8px; }
+.cl-img-lightbox-close{ position:absolute;top:1rem;right:1.5rem;font-size:28px;color:#fff;cursor:pointer; }
+
+
+/* RESPONSIVO MÓVIL */
+@media(max-width:768px){
+  .topbar{padding:0 .75rem;height:auto !important;min-height:52px;flex-wrap:wrap;gap:0;}
+  .tb-tabs{order:3;width:100%;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--brd);-webkit-overflow-scrolling:touch;}
+  .tb-tabs::-webkit-scrollbar{display:none;}
+  .tb-tab{font-size:9px;padding:8px 10px;white-space:nowrap;flex-shrink:0;}
+  .tb-right{order:2;margin-left:auto;gap:4px;flex-shrink:0;}
+  .tb-btn{font-size:9px;padding:4px 8px;}
+  .page-hd{flex-direction:column;gap:10px;padding:.75rem;}
+  .form-grid{grid-template-columns:1fr !important;}
+  .modal-box{max-width:100% !important;width:100% !important;border-radius:18px 18px 0 0;margin:0 !important;}
+  input,select,textarea{font-size:16px !important;}
+  button{touch-action:manipulation;}
+  .cl-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .cl-th,.cl-td{font-size:10px;padding:6px 4px;white-space:nowrap;}
+}
+
+</style>
+<script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     LANDING / PORTADA
+══════════════════════════════════════════ -->
+<div id="landing">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="ld-grid"></div>
+  <div class="ld-scan"></div>
+
+  <div class="ld-bar">
+    <div class="ld-logo-wrap">
+      <div class="ld-logo">CM</div>
+      <div class="ld-brand-col">
+        <div class="ld-brand-name">CHECKMASTER</div>
+        <div class="ld-brand-sub">RESEMIN S.A.</div>
+      </div>
+    </div>
+    <div class="ld-bar-right">
+      <div class="ld-status"><div class="ld-status-dot"></div>SISTEMA ACTIVO</div>
+      <div class="ld-ver">V2026</div>
+    </div>
+  </div>
+
+  <div class="ld-hero">
+    <div class="ld-eyechip"><div class="ld-eyechip-dot"></div>JEFATURA DE CONTROL DE CALIDAD</div>
+    <div class="ld-eyebrow">PLATAFORMA DE ASEGURAMIENTO DE</div>
+    <div class="ld-title-wrap">
+      <span class="ld-t1">CHECK LIST</span>
+      <span class="ld-t2">BOOM & VIGAS</span>
+    </div>
+    <div class="ld-div"><div class="ld-dline"></div><div class="ld-ddot"></div><div class="ld-dline"></div></div>
+    <div class="ld-tagline">INSPECCIÓN · PENALIZACIONES · BASE DE DATOS · EVALUACIÓN DE DESEMPEÑO</div>
+
+    <div class="ld-stats">
+      <div class="ld-si"><div class="ld-sn ld-sn1" id="ld-n-insp">0</div><div class="ld-sl">INSPECCIONES</div></div>
+      <div class="ld-si"><div class="ld-sn ld-sn2" id="ld-n-prom">—</div><div class="ld-sl">PUNTAJE PROM.</div></div>
+      <div class="ld-si"><div class="ld-sn ld-sn3" id="ld-n-exc">0%</div><div class="ld-sl">EXCELENTES</div></div>
+      <div class="ld-si"><div class="ld-sn ld-sn4" id="ld-n-crit">10</div><div class="ld-sl">CRITERIOS</div></div>
+    </div>
+
+    <div class="ld-cta">
+      <button class="ld-btn" onclick="enterApp()">
+        INGRESAR AL SISTEMA
+        <svg class="ld-btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <div class="ld-feats">
+      <div class="ld-fp"><div class="ld-fi" style="background:var(--blue);box-shadow:0 0 8px rgba(79,142,247,.9)"></div>CHECKLIST DIGITAL</div>
+      <div class="ld-fp"><div class="ld-fi" style="background:var(--amber);box-shadow:0 0 8px rgba(245,158,11,.9)"></div>SISTEMA DE PENALIZACIONES</div>
+      <div class="ld-fp"><div class="ld-fi" style="background:var(--teal);box-shadow:0 0 8px rgba(45,212,191,.9)"></div>BASE DE DATOS</div>
+      <div class="ld-fp"><div class="ld-fi" style="background:var(--green);box-shadow:0 0 8px rgba(34,197,94,.9)"></div>DASHBOARD EJECUTIVO</div>
+      <div class="ld-fp"><div class="ld-fi" style="background:var(--violet);box-shadow:0 0 8px rgba(139,92,246,.9)"></div>EVALUACIÓN DE TÉCNICOS</div>
+    </div>
+  </div>
+
+  <div class="ld-footer">
+    <div class="ld-fl">BRAZOS & VIGAS · CONTROL DE CALIDAD · RESEMIN S.A.</div>
+    <div class="ld-fr" id="ld-date"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     APP
+══════════════════════════════════════════ -->
+<div id="app">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="tb-brand">
+      <div class="tb-logo" onclick="goHome()" title="VOLVER A PORTADA">CM</div>
+      <div class="tb-name">CHECKMASTER</div>
+    </div>
+    <div class="tb-tabs">
+      <button class="tb-tab active" onclick="switchView('checklist')" id="tab-checklist">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        NUEVO CHECKLIST
+      </button>
+      <button class="tb-tab" onclick="switchView('database')" id="tab-database">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        BASE DE DATOS
+      </button>
+      <button class="tb-tab" onclick="switchView('dashboard')" id="tab-dashboard">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        DASHBOARD
+      </button>
+      <button class="tb-tab" onclick="switchView('tecnicos')" id="tab-tecnicos">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        TÉCNICOS
+      </button>
+      <button class="tb-tab" onclick="switchView('config')" id="tab-config">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M12 2v2M12 20v2M20 12h2M2 12h2M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41"/></svg>
+        CONFIGURAR
+      </button>
+    </div>
+    <div class="tb-right">
+      <button id="btn-sp-cm" class="tb-btn" onclick="spLoginC()" style="border-color:rgba(91,156,246,.3);color:var(--blue);background:rgba(91,156,246,.06)">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.66 0 3-4.03 3-9s-1.34-9-3-9m0 18c-1.66 0-3-4.03-3-9s1.34-9 3-9m-9 9a9 9 0 019-9"/></svg>
+        CONECTAR SHAREPOINT
+      </button>
+      <button id="btn-sp-sync-cm" class="tb-btn" onclick="spSyncManualC()" style="border-color:rgba(167,139,250,.3);color:var(--violet);background:rgba(167,139,250,.06)">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+        SYNC
+      </button>
+      <button class="tb-btn" onclick="importarDatos()" style="border-color:rgba(45,212,191,.3);color:var(--teal);background:rgba(45,212,191,.05)">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        IMPORTAR
+      </button>
+      <button class="tb-btn" onclick="exportarDatos()" style="border-color:rgba(79,142,247,.3);color:var(--blue);background:rgba(79,142,247,.05)">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        EXPORTAR
+      </button>
+
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="app-main">
+
+    <!-- ══ CHECKLIST VIEW ══ -->
+    <div class="view active" id="view-checklist">
+      <div class="page-header">
+        <div class="page-eyebrow">REGISTRO DE INSPECCIÓN</div>
+        <div class="page-title">NUEVO CHECKLIST — BOOM & VIGAS</div>
+        <div class="page-sub">SISTEMA DE PENALIZACIONES: EXCELENTE (-0) · SATISFACTORIO (-3) · DEFICIENTE (-10) · CRÍTICO (-25)</div>
+      </div>
+
+      <!-- INFO GENERAL -->
+      <div class="fcard">
+        <div class="fcard-title" style="color:var(--blue)">INFORMACIÓN GENERAL</div>
+        <div class="fgrid2">
+          <div class="fg"><label class="flabel">CLIENTE <em>*</em></label><input type="text" id="f-cliente" class="finput" placeholder="EJ: MGO / VENTAS"></div>
+          <div class="fg"><label class="flabel">OP ENSAMBLE <em>*</em></label><input type="text" id="f-op" class="finput" placeholder="EJ: P17JN26"></div>
+          <div class="fg"><label class="flabel">N° DE SERIE <em>*</em></label><input type="text" id="f-serie" class="finput" placeholder="EJ: JMC-1583"></div>
+          <div class="fg"><label class="flabel">FECHA DE INSPECCIÓN <em>*</em></label><input type="date" id="f-fecha" class="finput"></div>
+          <div class="fg"><label class="flabel">TIPO DE ENSAMBLE <em>*</em></label>
+            <select id="f-tipo" class="fselect">
+              <option value="">SELECCIONAR...</option>
+              <option value="BOOM">BOOM</option>
+              <option value="VIGAS">VIGAS</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- PERSONAL -->
+      <div class="fcard">
+        <div class="fcard-title" style="color:var(--teal)">PERSONAL RESPONSABLE</div>
+        <div class="fgrid3">
+          <div class="fg"><label class="flabel">TÉCNICO MONTAJE <em>*</em></label><input type="text" id="f-tecnico" class="finput" placeholder="NOMBRE DEL TÉCNICO"></div>
+          <div class="fg"><label class="flabel">SUPERVISOR <em>*</em></label><input type="text" id="f-supervisor" class="finput" placeholder="NOMBRE DEL SUPERVISOR"></div>
+          <div class="fg"><label class="flabel">SENIOR / INSPECTOR <em>*</em></label><input type="text" id="f-senior" class="finput" placeholder="NOMBRE DEL SENIOR"></div>
+          <div class="fg"><label class="flabel">HORA INICIO</label><input type="time" id="f-inicio" class="finput"></div>
+          <div class="fg"><label class="flabel">HORA FIN</label><input type="time" id="f-fin" class="finput"></div>
+        </div>
+      </div>
+
+      <!-- RÚBRICA -->
+      <div class="fcard" style="margin-bottom:14px">
+        <div class="fcard-title" style="color:var(--amber)">RÚBRICA DE EVALUACIÓN</div>
+        <div style="overflow-x:auto">
+          <table class="rubrica-table" style="background:var(--s2);border-radius:10px;overflow:hidden">
+            <thead><tr>
+              <th style="color:var(--green)">🟢 EXCELENTE</th>
+              <th style="color:var(--blue)">🔵 SATISFACTORIO</th>
+              <th style="color:var(--amber)">🟡 DEFICIENTE</th>
+              <th style="color:var(--rose)">🔴 CRÍTICO</th>
+            </tr></thead>
+            <tbody><tr>
+              <td style="color:var(--green)">-0 pts · Cumple en totalidad</td>
+              <td style="color:var(--blue)">-3 pts · No afecta funcionalidad</td>
+              <td style="color:var(--amber)">-10 pts · Afecta funcionalidad</td>
+              <td style="color:var(--rose)">-25 pts · Condición insegura</td>
+            </tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SCORE BAR -->
+      <div class="score-bar-wrap">
+        <div class="score-top">
+          <div>
+            <div class="score-label">PUNTAJE ACUMULADO</div>
+            <div style="display:flex;align-items:baseline;gap:6px;margin-top:4px">
+              <div class="score-num" id="score-display" style="color:var(--green)">100</div>
+              <div style="font-family:var(--f2);font-size:13px;color:var(--muted)">/100</div>
+              <div style="font-family:var(--f2);font-size:13px;color:var(--muted);margin-left:12px">NOTA:</div>
+              <div class="score-num" id="nota-display" style="font-size:20px;color:var(--teal)">20</div>
+              <div style="font-family:var(--f2);font-size:13px;color:var(--muted)">/20</div>
+              <div id="resultado-badge" class="badge badge-excelente" style="margin-left:12px">✔ EXCELENTE</div>
+            </div>
+          </div>
+          <div style="font-family:var(--f2);font-size:10px;color:var(--muted);text-align:right;line-height:2">
+            PENALIZACIONES:<br><span id="pen-display" style="color:var(--rose);font-size:14px;font-weight:700">0 pts</span>
+          </div>
+        </div>
+        <div class="score-bar"><div class="score-fill" id="score-bar-fill" style="width:100%;background:linear-gradient(90deg,var(--green),var(--teal))"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;font-family:var(--f2);font-size:9px;color:var(--muted);letter-spacing:.1em">
+          <span>0 — CRÍTICO</span><span>50 — NO CONFORME</span><span>76 — CONFORME</span><span>91 — EXCELENTE</span><span>100</span>
+        </div>
+      </div>
+
+      <!-- CHECKLIST ITEMS -->
+      <div id="checklist-container"></div>
+
+      <!-- RECOMENDACIONES -->
+      <div class="fcard">
+        <div class="fcard-title" style="color:var(--violet)">RECOMENDACIONES / ACCIONES CORRECTIVAS</div>
+        <div class="fg"><textarea id="f-reco" class="ftextarea" placeholder="DESCRIBE LAS OBSERVACIONES Y ACCIONES CORRECTIVAS PARA CADA ÍTEM MARCADO..." style="min-height:120px"></textarea></div>
+        <div style="font-size:10px;color:var(--muted2);margin-top:8px;letter-spacing:.08em;line-height:2.0">SE GENERA AUTOMÁTICAMENTE EN BASE A LOS ÍTEMS EVALUADOS. PUEDES COMPLEMENTAR.</div>
+      </div>
+
+      <!-- SUBMIT -->
+      <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:1rem">
+        <button class="btn-secondary" onclick="resetChecklist()">↺ LIMPIAR FORMULARIO</button>
+        <button class="btn-primary" onclick="guardarChecklist()" style="padding:12px 36px;font-size:12px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-right:7px"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          REGISTRAR EN BASE DE DATOS
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ BASE DE DATOS VIEW ══ -->
+    <div class="view" id="view-database">
+      <div class="page-header">
+        <div class="page-eyebrow">HISTORIAL DE INSPECCIONES</div>
+        <div class="page-title">BASE DE DATOS — BOOM & VIGAS</div>
+        <div class="page-sub">TODOS LOS CHECKLISTS REGISTRADOS · ACTUALIZADO EN TIEMPO REAL</div>
+      </div>
+      <div class="metrics metrics-4" style="margin-bottom:1.5rem" id="db-kpis"></div>
+      <!-- Filtros -->
+      <div style="display:flex;gap:10px;margin-bottom:1rem;flex-wrap:wrap">
+        <input type="text" id="db-buscar" class="finput" placeholder="BUSCAR POR OP, TÉCNICO, SERIE..." oninput="renderDatabase()" style="flex:1;min-width:200px;height:38px;padding:7px 13px">
+        <select id="db-filtro-resultado" class="fselect" onchange="renderDatabase()" style="width:180px;height:38px;padding:7px 13px">
+          <option value="">TODOS LOS RESULTADOS</option>
+          <option>EXCELENTE</option><option>CONFORME</option><option>NO CONFORME</option><option>CRÍTICO</option>
+        </select>
+        <select id="db-filtro-tipo" class="fselect" onchange="renderDatabase()" style="width:150px;height:38px;padding:7px 13px">
+          <option value="">BOOM Y VIGAS</option><option>BOOM</option><option>VIGAS</option>
+        </select>
+      </div>
+      <div class="tbl-wrap">
+        <div style="overflow-x:auto">
+          <table style="min-width:1100px">
+            <thead><tr>
+              <th style="white-space:nowrap">N° REG.</th>
+              <th style="white-space:nowrap">FECHA</th>
+              <th style="white-space:nowrap">TIPO</th>
+              <th style="white-space:nowrap">OP ENSAMBLE</th>
+              <th style="white-space:nowrap">N° SERIE</th>
+              <th style="white-space:nowrap">TÉCNICO</th>
+              <th style="white-space:nowrap">SUPERVISOR</th>
+              <th style="white-space:nowrap">PUNTAJE</th>
+              <th style="white-space:nowrap">NOTA</th>
+              <th style="white-space:nowrap">RESULTADO</th>
+              <th style="white-space:nowrap">ACCIONES</th>
+            </tr></thead>
+            <tbody id="db-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ DASHBOARD VIEW ══ -->
+    <div class="view" id="view-dashboard">
+      <div class="page-header">
+        <div class="page-eyebrow">JEFATURA DE CALIDAD · REPORTE EJECUTIVO</div>
+        <div class="page-title">DASHBOARD — INDICADORES DE INSPECCIÓN</div>
+        <div class="page-sub" id="dash-fecha-txt">BOOM & VIGAS · ACTUALIZADO EN TIEMPO REAL</div>
+      </div>
+      <!-- KPIs globales -->
+      <div class="metrics metrics-5" id="dash-kpis" style="margin-bottom:16px"></div>
+      <!-- Charts fila 1 -->
+      <div class="chart-grid chart-3" style="margin-bottom:14px">
+        <div class="card"><div class="card-hd">DISTRIBUCIÓN DE RESULTADOS</div><canvas id="ch-resultados" height="190"></canvas></div>
+        <div class="card"><div class="card-hd">EVOLUCIÓN MENSUAL — PUNTAJE PROMEDIO</div><canvas id="ch-evolucion" height="190"></canvas></div>
+        <div class="card"><div class="card-hd">BOOM vs VIGAS</div><canvas id="ch-boomvigas" height="190"></canvas></div>
+      </div>
+      <!-- Charts fila 2 -->
+      <div class="chart-grid chart-2" style="margin-bottom:14px">
+        <div class="card">
+          <div class="card-hd">CRITERIOS — PROMEDIO DE PENALIZACIONES</div>
+          <canvas id="ch-criterios" height="200"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-hd">ANÁLISIS DE PENALIZACIONES POR CRITERIO</div>
+          <div id="dash-criterios-detail" style="margin-top:4px"></div>
+        </div>
+      </div>
+      <!-- Últimas inspecciones -->
+      <div class="card">
+        <div class="card-hd">ÚLTIMAS 5 INSPECCIONES REGISTRADAS</div>
+        <div class="tbl-wrap" style="margin-top:8px"><div style="overflow-x:auto">
+          <table style="min-width:900px">
+            <thead><tr>
+              <th>OP / EQUIPO</th><th>N° SERIE</th><th>TÉCNICO</th><th>FECHA</th><th>PUNTAJE</th><th>NOTA</th><th>RESULTADO</th>
+            </tr></thead>
+            <tbody id="dash-ultimas"></tbody>
+          </table>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ══ TÉCNICOS VIEW ══ -->
+    <div class="view" id="view-tecnicos">
+      <div class="page-header">
+        <div class="page-eyebrow">EVALUACIÓN DE DESEMPEÑO</div>
+        <div class="page-title">RANKING DE TÉCNICOS — BOOM & VIGAS</div>
+        <div class="page-sub">INDICADORES POR TÉCNICO PARA RECURSOS HUMANOS · EXPORTABLE EN PDF</div>
+      </div>
+      <!-- Filtros -->
+      <div style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap">
+        <select id="tec-filtro-tipo" class="fselect" onchange="renderTecnicos()" style="width:160px;height:38px;padding:7px 13px">
+          <option value="">BOOM Y VIGAS</option><option>BOOM</option><option>VIGAS</option>
+        </select>
+        <select id="tec-filtro-periodo" class="fselect" onchange="renderTecnicos()" style="width:160px;height:38px;padding:7px 13px">
+          <option value="anual">ANUAL</option>
+          <option value="mensual">MENSUAL</option>
+          <option value="semanal">SEMANAL</option>
+        </select>
+      </div>
+      <!-- Métricas globales -->
+      <div class="metrics metrics-4" id="tec-kpis" style="margin-bottom:1.5rem"></div>
+      <!-- Grid técnicos -->
+      <div class="card-hd" style="margin-bottom:10px">RANKING GENERAL POR PUNTAJE PROMEDIO</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:2rem" id="tec-ranking"></div>
+      <!-- Tabla detallada -->
+      <div class="card-hd" style="margin-bottom:10px">DETALLE POR TÉCNICO</div>
+      <div class="tbl-wrap"><div style="overflow-x:auto">
+        <table style="min-width:900px">
+          <thead><tr>
+            <th>TÉCNICO</th><th>TIPO</th><th>INSPECCIONES</th><th>PUNTAJE PROM.</th><th>NOTA PROM.</th><th>EXCELENTES</th><th>CONFORMES</th><th>NO CONFORMES</th><th>CRÍTICOS</th><th>SEMÁFORO</th><th style="min-width:220px">FEEDBACK DEL INSPECTOR</th>
+          </tr></thead>
+          <tbody id="tec-tbody"></tbody>
+        </table>
+      </div></div>
+      <div style="display:flex;justify-content:flex-end;margin-top:1rem">
+        <button class="btn-primary" onclick="exportarPDFTecnicos()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="margin-right:7px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+          EXPORTAR REPORTE TÉCNICOS PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ CONFIG VIEW ══ -->
+    <div class="view" id="view-config">
+      <div class="page-header">
+        <div class="page-eyebrow">MÓDULO DE CONFIGURACIÓN</div>
+        <div class="page-title">CONFIGURAR CHECKLIST & LISTAS</div>
+        <div class="page-sub">GESTIONA BLOQUES, ÍTEMS Y OPCIONES DEL FORMULARIO — CAMBIOS EN TIEMPO REAL</div>
+      </div>
+      <div style="display:flex;gap:0;margin-bottom:1.5rem;border-bottom:1px solid var(--brd)">
+        <button id="ctab-bloques" onclick="switchCfgTab('bloques')" style="font-family:var(--f2);font-size:10px;font-weight:700;letter-spacing:.12em;padding:11px 20px;background:none;border:none;border-bottom:2px solid var(--blue);color:var(--blue);cursor:pointer;transition:all .15s">BLOQUES &amp; ÍTEMS</button>
+        <button id="ctab-listas" onclick="switchCfgTab('listas')" style="font-family:var(--f2);font-size:10px;font-weight:700;letter-spacing:.12em;padding:11px 20px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted2);cursor:pointer;transition:all .15s">LISTAS DESPLEGABLES</button>
+      </div>
+      <div id="cfg-panel-bloques">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+          <div style="font-family:var(--f2);font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--muted2)">GESTIONA LOS BLOQUES Y CRITERIOS DEL CHECKLIST</div>
+          <button class="btn-primary" onclick="abrirModalBloque()" style="padding:9px 20px;font-size:10px">+ NUEVO BLOQUE</button>
+        </div>
+        <div id="cfg-bloques-list"></div>
+      </div>
+      <div id="cfg-panel-listas" style="display:none">
+        <div style="font-family:var(--f2);font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--muted2);margin-bottom:1rem">AGREGA, EDITA O ELIMINA LAS OPCIONES QUE APARECEN EN LOS CAMPOS DEL FORMULARIO</div>
+        <div id="cfg-listas-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px"></div>
+      </div>
+    </div>
+
+    <!-- MODAL BLOQUE -->
+    <div id="modal-bloque" class="modal-overlay">
+      <div class="modal" style="max-width:520px">
+        <div class="modal-header">
+          <div><div class="modal-title" id="modal-bloque-title">NUEVO BLOQUE</div><div class="modal-sub">LETRA, NOMBRE Y DESCRIPCIÓN</div></div>
+          <button class="modal-close" onclick="closeModal('modal-bloque')">&#x2715;</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:grid;grid-template-columns:80px 1fr;gap:12px">
+            <div class="fg"><label class="flabel">LETRA <em>*</em></label><input type="text" id="mb-letra" class="finput" placeholder="B" maxlength="2"></div>
+            <div class="fg"><label class="flabel">NOMBRE <em>*</em></label><input type="text" id="mb-nombre" class="finput" placeholder="EJ: INSPECCIÓN OPERATIVA"></div>
+          </div>
+          <div class="fg"><label class="flabel">DESCRIPCIÓN</label><input type="text" id="mb-desc" class="finput" placeholder="EJ: VERIFICACIÓN CON EQUIPO EN OPERACIÓN"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" onclick="closeModal('modal-bloque')">CANCELAR</button>
+          <button class="btn-primary" onclick="guardarBloque()">GUARDAR BLOQUE</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL ÍTEM -->
+    <div id="modal-item" class="modal-overlay">
+      <div class="modal" style="max-width:560px">
+        <div class="modal-header">
+          <div><div class="modal-title" id="modal-item-title">NUEVO ÍTEM</div><div class="modal-sub" id="modal-item-sub">BLOQUE —</div></div>
+          <button class="modal-close" onclick="closeModal('modal-item')">&#x2715;</button>
+        </div>
+        <div class="fg" style="margin-top:4px"><label class="flabel">DESCRIPCIÓN DEL CRITERIO <em>*</em></label>
+          <textarea id="mi-desc" class="ftextarea" placeholder="DESCRIBE EL CRITERIO DE CONTROL PARA ESTE ÍTEM..." style="min-height:90px;margin-top:8px"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" onclick="closeModal('modal-item')">CANCELAR</button>
+          <button class="btn-primary" onclick="guardarItem()">GUARDAR ÍTEM</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL OPCIÓN LISTA -->
+    <div id="modal-lista-op" class="modal-overlay">
+      <div class="modal" style="max-width:420px">
+        <div class="modal-header">
+          <div><div class="modal-title" id="modal-lista-title">EDITAR OPCIÓN</div><div class="modal-sub" id="modal-lista-sub">—</div></div>
+          <button class="modal-close" onclick="closeModal('modal-lista-op')">&#x2715;</button>
+        </div>
+        <div class="fg" style="margin-top:4px"><label class="flabel">VALOR <em>*</em></label><input type="text" id="ml-valor" class="finput" style="margin-top:8px"></div>
+        <div class="modal-footer">
+          <button class="btn-secondary" onclick="closeModal('modal-lista-op')">CANCELAR</button>
+          <button class="btn-primary" onclick="guardarOpcionLista()">GUARDAR</button>
+        </div>
+      </div>
+    </div>
+
+
+  </div><!-- /app-main -->
+</div><!-- /app -->
+
+<!-- MODALS -->
+<div id="modal-detalle" class="modal-overlay">
+  <div class="modal" style="max-width:800px">
+    <div class="modal-header">
+      <div><div class="modal-title">DETALLE DE INSPECCIÓN</div><div class="modal-sub" id="modal-det-sub">—</div></div>
+      <button class="modal-close" onclick="closeModal('modal-detalle')">✕ CERRAR</button>
+    </div>
+    <div id="modal-det-body"></div>
+    <div class="modal-footer">
+      <button class="btn-danger" id="modal-det-del-btn">🗑 ELIMINAR REGISTRO</button>
+      <button class="btn-secondary" onclick="closeModal('modal-detalle')">CERRAR</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="import-file" accept=".json" style="display:none" onchange="procesarImport(event)">
+
+<!-- TOAST -->
+<div id="toast"><div id="toast-dot"></div><span id="toast-msg"></span></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  if(typeof Chart!=='undefined'){
+    Chart.defaults.font.family='Space Grotesk,sans-serif';
+    Chart.defaults.color='#7a9ab8';
+    Chart.defaults.animation=false;
+  }
+});
+
+/* ══════════════════════════════════════════
+   DATA
+══════════════════════════════════════════ */
+var LS_KEY = 'checkmaster_v1';
+var nextId = 1;
+
+function lsLoad(){ try{ return JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch(e){ return {}; } }
+function lsSave(db){
+  try{
+    localStorage.setItem(LS_KEY,JSON.stringify(db));
+  } catch(e){
+    if(e.name==='QuotaExceededError'||e.code===22){
+      // Intentar limpiar imágenes huérfanas y reintentar
+      try{
+        if(db.registros) db.registros.forEach(function(r){r.imgsBlqA={};});
+        localStorage.setItem(LS_KEY,JSON.stringify(db));
+        showToast('⚠ ALMACENAMIENTO JUSTO — SE LIMPIARON IMÁGENES GUARDADAS. LOS DATOS FUERON SALVADOS.','info');
+        return;
+      }catch(e2){}
+      showToast('⚠ ALMACENAMIENTO LLENO — EXPORTA TU BACKUP JSON Y LUEGO BORRA EL CACHÉ DEL NAVEGADOR.','error');
+    } else {
+      showToast('ERROR AL GUARDAR: '+e.message,'error');
+    }
+  }
+}
+function getData(){ var db=lsLoad(); var arr=db.registros||[]; nextId=arr.length?Math.max.apply(null,arr.map(function(r){return r.id||0;}))+1:1; return arr; }
+function saveData(arr){ var db=lsLoad(); db.registros=arr; lsSave(db); }
+
+/* ══════════════════════════════════════════
+   CHECKLIST ITEMS DEFINITION
+══════════════════════════════════════════ */
+/* ─── DEFAULT BLOQUES ─── */
+var DEFAULT_BLOQUES = [
+  {
+    id:'bloq-a', letra:'A', nombre:'INSPECCIÓN VISUAL',
+    desc:'VERIFICACIÓN DIRECTA SIN OPERAR EL EQUIPO',
+    items:[
+      {id:'1.1', desc:'Los pines (viga), brazo C, pivotes y cilindros (boom) cuentan con engrase correcto.'},
+      {id:'1.2', desc:'Los pernos presentan torque aplicado y marcado de verificación (expander, etc.).'},
+      {id:'1.3', desc:'Los componentes adyacentes no generan interferencia ni daño al sistema.'},
+      {id:'1.4', desc:'El ensamble cumple con las especificaciones técnicas del plano.'},
+      {id:'1.5', desc:'Todos los componentes requeridos (topes, protectores, soportes y sistemas) están instalados.'},
+      {id:'1.6', desc:'Los componentes están libres de oxidación o corrosión visible.'},
+      {id:'1.7', desc:'Los componentes están cubiertos y protegidos (sin exposición a contaminación).'},
+      {id:'1.8', desc:'El ensamble coincide con el modelo 3D, estándar o LMAT vigente.'},
+      {id:'1.9', desc:'Todos los puntos de engrase (fitting) están instalados y accesibles.'},
+      {id:'1.10', desc:'Los tapones de plástico o metálicos del pasamuro están colocados en los puntos requeridos.'}
+    ]
+  }
+];
+
+/* ─── DEFAULT LISTAS ─── */
+var DEFAULT_LISTAS = {
+  cliente:   { label:'CLIENTE',             items:['MGO','VENTAS','CODELCO','ANTAMINA'] },
+  tipo:      { label:'TIPO DE ENSAMBLE',    items:['BOOM','VIGAS'] },
+  supervisor:{ label:'SUPERVISOR',          items:['MARCO ENRIQUEZ'] },
+  senior:    { label:'SENIOR / INSPECTOR',  items:['CARLOS REYES'] }
+};
+
+/* ─── GETTERS ─── */
+function getBloques(){
+  var db=lsLoad(); return db.bloques||JSON.parse(JSON.stringify(DEFAULT_BLOQUES));
+}
+function saveBloques(b){ var db=lsLoad(); db.bloques=b; lsSave(db); }
+function getListas(){
+  var db=lsLoad(); return db.listas||JSON.parse(JSON.stringify(DEFAULT_LISTAS));
+}
+function saveListas(l){ var db=lsLoad(); db.listas=l; lsSave(db); }
+
+/* CRITERIOS flattened (para compatibilidad con calcScore, guardarChecklist, etc.) */
+function getCriterios(){
+  var bl=getBloques();
+  var out=[];
+  bl.forEach(function(b){
+    (b.items||[]).forEach(function(it){
+      out.push({ id:it.id, desc:it.desc, bloqueLetra:b.letra, bloqueNombre:b.nombre });
+    });
+  });
+  return out;
+}
+
+var PEN_MAP = { 'E':0, 'S':-3, 'D':-10, 'C':-25 };
+var NOTA_MAP = function(p){ return p>=91?20:p>=76?16:p>=50?8:0; };
+var RESULT_MAP = function(p){ return p>=91?'EXCELENTE':p>=76?'CONFORME':p>=50?'NO CONFORME':'CRÍTICO'; };
+
+/* Build checklist HTML — now driven by getBloques() */
+function buildChecklistHTML(){
+  var bloques = getBloques();
+  var html = '';
+  bloques.forEach(function(b){
+    html += '<div class="cl-section-header">';
+    html += '<div class="cl-section-letter">'+b.letra+'</div>';
+    html += '<div><div class="cl-section-name">BLOQUE '+b.letra+' — '+b.nombre+'</div>';
+    html += '<div style="font-size:10px;color:var(--muted2);margin-top:2px;letter-spacing:.08em">'+b.desc+'</div></div></div>';
+    html += '<div class="cl-table-wrap"><table class="cl-table"><thead><tr>';
+    html += '<th class="cl-th" style="width:50px">ÍTEM</th>';
+    html += '<th class="cl-th" style="text-align:left">DESCRIPCIÓN DEL CRITERIO</th>';
+    html += '<th class="cl-th"><span style="color:var(--green)">🟢</span><br>EXCL.</th>';
+    html += '<th class="cl-th"><span style="color:var(--blue)">🔵</span><br>SATIS.</th>';
+    html += '<th class="cl-th"><span style="color:var(--amber)">🟡</span><br>DEFIC.</th>';
+    html += '<th class="cl-th"><span style="color:var(--rose)">🔴</span><br>CRÍT.</th>';
+    html += '<th class="cl-th">PENAL.</th>';
+    html += '<th class="cl-th" style="text-align:left;min-width:200px">OBSERVACIONES</th>';
+    if(b.letra==='A'){ html += '<th class="cl-th" style="width:110px">EVIDENCIA</th>'; }
+    html += '</tr></thead><tbody>';
+    (b.items||[]).forEach(function(cr){
+      var uid = 'cr_'+cr.id.replace(/\./g,'_');
+      html += '<tr class="cl-tr">';
+      html += '<td class="cl-td cl-num">'+cr.id+'</td>';
+      html += '<td class="cl-td cl-desc">'+cr.desc+'</td>';
+      ['E','S','D','C'].forEach(function(v){
+        var cls = v==='E'?'exc':v==='S'?'sat':v==='D'?'def':'cri';
+        var emoji = v==='E'?'✔':v==='S'?'○':v==='D'?'△':'✖';
+        html += '<td class="cl-td" style="text-align:center">';
+        html += '<input type="radio" name="'+uid+'" value="'+v+'" id="'+uid+'_'+v+'" class="cl-radio '+cls+'" onchange="calcScore()">';
+        html += '<label for="'+uid+'_'+v+'" class="cl-radio-lbl">'+emoji+'</label>';
+        html += '</td>';
+      });
+      html += '<td class="cl-td"><div class="cl-penaliz pen-0" id="pen_'+uid+'">0</div></td>';
+      html += '<td class="cl-td"><input type="text" class="cl-obs-input" id="obs_'+uid+'" placeholder="OBSERVACIÓN..."></td>';
+      if(b.letra==='A'){
+        html += '<td class="cl-td cl-td-evidencia">';
+        html += '<div class="cl-img-wrap" id="imgs_'+uid+'"></div>';
+        html += '<div class="cl-img-add" id="add_'+uid+'" onclick="clAddImg(\''+uid+'\')" title="Agregar foto">+</div>';
+        html += '<input type="file" id="finp_'+uid+'" accept="image/*" style="display:none" onchange="clHandleImg(this,\''+uid+'\')"></td>';
+      }
+      html += '</tr>';
+    });
+    html += '</tbody></table></div>';
+  });
+  document.getElementById('checklist-container').innerHTML = html;
+  getCriterios().forEach(function(cr){
+    var uid = 'cr_'+cr.id.replace(/\./g,'_');
+    var el = document.getElementById(uid+'_E');
+    if(el) el.checked = true;
+  });
+  calcScore();
+}
+
+function calcScore(){
+  var totalPen = 0;
+  var autoReco = [];
+  getCriterios().forEach(function(c){
+    var uid = 'cr_'+c.id.replace(/\./g,'_');
+    var sel = document.querySelector('input[name="'+uid+'"]:checked');
+    var val = sel ? sel.value : 'E';
+    var pen = PEN_MAP[val]||0;
+    totalPen += pen;
+    var penEl = document.getElementById('pen_'+uid);
+    if(penEl){
+      penEl.textContent = pen===0?'0':String(pen);
+      penEl.className = 'cl-penaliz ' + (pen===0?'pen-0':pen===-3?'pen-3':pen===-10?'pen-10':'pen-25');
+    }
+    if(pen<0) autoReco.push(c.id+': verificar "'+c.desc.substring(0,50)+'..."');
+  });
+  var score = Math.max(0, 100+totalPen);
+  var nota = NOTA_MAP(score);
+  var result = RESULT_MAP(score);
+  document.getElementById('score-display').textContent = score;
+  document.getElementById('nota-display').textContent = nota;
+  document.getElementById('pen-display').textContent = totalPen+' PTS';
+  var sc = score/100;
+  var color = score>=91?'linear-gradient(90deg,var(--green),var(--teal))':score>=76?'linear-gradient(90deg,var(--blue),var(--teal))':score>=50?'linear-gradient(90deg,var(--amber),var(--orange))':'linear-gradient(90deg,var(--rose),var(--rose2))';
+  document.getElementById('score-bar-fill').style.width = score+'%';
+  document.getElementById('score-bar-fill').style.background = color;
+  document.getElementById('score-display').style.color = score>=91?'var(--green)':score>=76?'var(--blue)':score>=50?'var(--amber)':'var(--rose)';
+  var bdg = document.getElementById('resultado-badge');
+  bdg.textContent = (score>=91?'✔ EXCELENTE':score>=76?'✔ CONFORME':score>=50?'⚠ NO CONFORME':'✖ CRÍTICO');
+  bdg.className = 'badge badge-'+(score>=91?'excelente':score>=76?'conforme':score>=50?'noconforme':'critico');
+  // auto-fill reco if empty
+  var recoEl = document.getElementById('f-reco');
+  if(autoReco.length && recoEl && !recoEl.dataset.manual) recoEl.value = autoReco.join('\n');
+  if(autoReco.length===0 && recoEl && !recoEl.dataset.manual) recoEl.value='';
+}
+
+document.addEventListener('input', function(e){ if(e.target.id==='f-reco') e.target.dataset.manual='1'; });
+
+/* ══ SAVE ══ */
+function guardarChecklist(){
+  var cliente=document.getElementById('f-cliente').value.trim();
+  var op=document.getElementById('f-op').value.trim();
+  var serie=document.getElementById('f-serie').value.trim();
+  var fecha=document.getElementById('f-fecha').value;
+  var tipo=document.getElementById('f-tipo').value;
+  var tecnico=document.getElementById('f-tecnico').value.trim();
+  var supervisor=document.getElementById('f-supervisor').value.trim();
+  var senior=document.getElementById('f-senior').value.trim();
+
+  // Validación descriptiva campo a campo
+  var faltantes=[];
+  if(!op)         faltantes.push('OP ENSAMBLE');
+  if(!fecha)      faltantes.push('FECHA');
+  if(!tipo)       faltantes.push('TIPO DE ENSAMBLE');
+  if(!tecnico)    faltantes.push('TÉCNICO MONTAJE');
+  if(!supervisor) faltantes.push('SUPERVISOR');
+  if(!senior)     faltantes.push('SENIOR / INSPECTOR');
+  if(faltantes.length){
+    showToast('CAMPOS INCOMPLETOS: '+faltantes.join(' · '),'error');
+    return;
+  }
+
+  try{
+    var criterios={};
+    var totalPen=0;
+    getCriterios().forEach(function(c){
+      var uid='cr_'+c.id.replace(/\./g,'_');
+      var sel=document.querySelector('input[name="'+uid+'"]:checked');
+      var val=sel?sel.value:'E';
+      var obs=document.getElementById('obs_'+uid)?document.getElementById('obs_'+uid).value.trim():'';
+      var pen=PEN_MAP[val]||0;
+      totalPen+=pen;
+      criterios[c.id]={valor:val,obs:obs,pen:pen};
+    });
+    var puntaje=Math.max(0,100+totalPen);
+    var nota=NOTA_MAP(puntaje);
+    var resultado=RESULT_MAP(puntaje);
+    var arr=getData();
+    var reg={
+      id:nextId++,
+      codigo:'CL-'+String(arr.length+1).padStart(3,'0'),
+      fecha:fecha,tipo:tipo,equipo:'—',cliente:cliente,
+      op:op,serie:serie,tecnico:tecnico.toUpperCase(),
+      supervisor:supervisor.toUpperCase(),senior:senior.toUpperCase(),
+      horaInicio:document.getElementById('f-inicio').value,
+      horaFin:document.getElementById('f-fin').value,
+      criterios:criterios,puntaje:puntaje,nota:nota,
+      resultado:resultado,
+      reco:document.getElementById('f-reco').value.trim().toUpperCase()
+    };
+    reg.imgsBlqA = {};  // No se guardan en localStorage para no saturar el almacenamiento
+    // Si SharePoint está activo, se sincronizan vía spWriteC (que acepta el objeto completo)
+    var imgsParaSync = clGetAllImgs();
+    arr.push(reg);
+    saveData(arr);
+    // Sincronizar con imágenes si hay conexión SP (objeto temporal, no en LS)
+    if(SP_ON_C && Object.keys(imgsParaSync).length){
+      var regConImgs = Object.assign({}, reg, {imgsBlqA: imgsParaSync});
+      spWriteC(regConImgs).catch(function(){});
+    }
+    showToast('✔ REGISTRO '+reg.codigo+' GUARDADO — PUNTAJE: '+puntaje+'/100','success');
+    resetChecklist();
+    updateLandingStats();
+  } catch(e){
+    if(e.name!=='QuotaExceededError' && e.code!==22){
+      showToast('ERROR AL GUARDAR: '+e.message,'error');
+    }
+    console.error('guardarChecklist error:',e);
+  }
+}
+
+function resetChecklist(){
+  ['f-cliente','f-op','f-serie','f-tecnico','f-supervisor','f-senior'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('f-fecha').value=new Date().toISOString().slice(0,10);
+  document.getElementById('f-tipo').value='';
+  document.getElementById('f-inicio').value='';
+  document.getElementById('f-fin').value='';
+  document.getElementById('f-reco').value='';
+  delete document.getElementById('f-reco').dataset.manual;
+  buildChecklistHTML();
+}
+
+/* ══════════════════════════════════════════
+   DATABASE VIEW
+══════════════════════════════════════════ */
+function renderDatabase(){
+  var arr=getData();
+  var buscar=(document.getElementById('db-buscar').value||'').toLowerCase();
+  var filtroRes=(document.getElementById('db-filtro-resultado').value||'').toLowerCase();
+  var filtroTipo=(document.getElementById('db-filtro-tipo').value||'').toLowerCase();
+  var filtered=arr.filter(function(r){
+    var mB=!buscar||(r.op||'').toLowerCase().includes(buscar)||(r.tecnico||'').toLowerCase().includes(buscar)||(r.serie||'').toLowerCase().includes(buscar)||(r.equipo||'').toLowerCase().includes(buscar);
+    var mR=!filtroRes||(r.resultado||'').toLowerCase()===filtroRes;
+    var mT=!filtroTipo||(r.tipo||'').toLowerCase()===filtroTipo;
+    return mB&&mR&&mT;
+  }).sort(function(a,b){return b.id-a.id;});
+  // KPIs
+  var kpiEl=document.getElementById('db-kpis');
+  var total=filtered.length,
+      prom=total?Math.round(filtered.reduce(function(s,r){return s+r.puntaje;},0)/total):0,
+      exc=filtered.filter(function(r){return r.puntaje>=91;}).length,
+      crit=filtered.filter(function(r){return r.puntaje<50;}).length;
+  if(kpiEl) kpiEl.innerHTML=
+    mkMetric('TOTAL INSPECCIONES',total,'','m-c-blue')+
+    mkMetric('PUNTAJE PROMEDIO',prom+'/100','base 100','m-c-teal')+
+    mkMetric('EXCELENTES',exc,(total?Math.round(exc/total*100):0)+'%','m-c-green')+
+    mkMetric('CRÍTICOS',crit,(total?Math.round(crit/total*100):0)+'%','m-c-rose');
+  // Table
+  var tbody=document.getElementById('db-tbody');
+  if(!tbody) return;
+  if(!filtered.length){tbody.innerHTML='<tr><td colspan="11" style="text-align:center;padding:2rem;color:var(--muted)">SIN REGISTROS. HAZ CLIC EN "NUEVO CHECKLIST" PARA COMENZAR.</td></tr>';return;}
+  tbody.innerHTML=filtered.map(function(r){
+    return '<tr><td><b>'+r.codigo+'</b></td>'
+      +'<td>'+r.fecha+'</td>'
+      +'<td>'+mkTipoBadge(r.tipo)+'</td>'
+      +'<td>'+r.op+'</td>'
+      +'<td>'+r.serie+'</td>'
+      +'<td>'+r.tecnico+'</td>'
+      +'<td>'+r.supervisor+'</td>'
+      +'<td><b style="color:'+(r.puntaje>=91?'var(--green)':r.puntaje>=76?'var(--blue)':r.puntaje>=50?'var(--amber)':'var(--rose)')+'">'+r.puntaje+'</b></td>'
+      +'<td><b>'+r.nota+'</b></td>'
+      +'<td>'+mkResultBadge(r.resultado)+'</td>'
+      +'<td><button class="tb-btn" style="padding:5px 10px;font-size:9px" onclick="verDetalle('+r.id+')">VER</button></td>'
+      +'</tr>';
+  }).join('');
+}
+
+function verDetalle(id){
+  var arr=getData();
+  var r=arr.find(function(x){return x.id===id;});
+  if(!r) return;
+  document.getElementById('modal-det-sub').textContent=r.codigo+' · '+r.op+' · '+r.fecha;
+
+  var pColor=r.puntaje>=91?'#22c55e':r.puntaje>=76?'#4f8ef7':r.puntaje>=50?'#f59e0b':'#f43f5e';
+  var pGrad=r.puntaje>=91?'linear-gradient(135deg,#052e16,#064e3b)':r.puntaje>=76?'linear-gradient(135deg,#0c1a3a,#0f2857)':r.puntaje>=50?'linear-gradient(135deg,#2d1a00,#3d2200)':'linear-gradient(135deg,#2d0a14,#3d0f1c)';
+  var pLabel=r.puntaje>=91?'EXCELENTE':r.puntaje>=76?'CONFORME':r.puntaje>=50?'NO CONFORME':'CRÍTICO';
+  var pEmoji=r.puntaje>=91?'✦':r.puntaje>=76?'✔':r.puntaje>=50?'⚠':'✖';
+  var nota=r.nota||0;
+
+  // ══ HERO BANNER ══
+  var html='<div style="'
+    +'background:'+pGrad+';'
+    +'border:1px solid '+pColor+'40;'
+    +'border-radius:16px;padding:24px 28px;margin-bottom:18px;position:relative;overflow:hidden'
+    +'">';
+  // glow orb fondo
+  html+='<div style="position:absolute;width:300px;height:300px;border-radius:50%;background:'+pColor+'18;filter:blur(60px);top:-80px;right:-60px;pointer-events:none"></div>';
+  // fila superior: puntaje + badge
+  html+='<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative;z-index:1">';
+  html+='<div>';
+  html+='<div style="font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.28em;color:'+pColor+'99;margin-bottom:6px">RESULTADO DE INSPECCIÓN</div>';
+  html+='<div style="display:flex;align-items:baseline;gap:6px">';
+  html+='<span style="font-family:var(--f2);font-size:72px;font-weight:800;line-height:1;color:'+pColor+';text-shadow:0 0 40px '+pColor+'55">'+r.puntaje+'</span>';
+  html+='<span style="font-family:var(--f2);font-size:22px;font-weight:700;color:'+pColor+'88">/100</span>';
+  html+='</div>';
+  html+='<div style="display:flex;align-items:center;gap:10px;margin-top:6px">';
+  html+='<span style="font-family:var(--f2);font-size:11px;font-weight:700;color:'+pColor+'cc;letter-spacing:.1em">NOTA:</span>';
+  html+='<span style="font-family:var(--f2);font-size:28px;font-weight:800;color:'+pColor+'">'+nota+'</span>';
+  html+='<span style="font-family:var(--f2);font-size:13px;color:'+pColor+'88;font-weight:700">/20</span>';
+  html+='</div>';
+  html+='</div>';
+  // badge resultado
+  html+='<div style="text-align:right">';
+  html+='<div style="display:inline-flex;flex-direction:column;align-items:center;justify-content:center;'
+    +'background:'+pColor+'18;border:2px solid '+pColor+'55;border-radius:14px;'
+    +'padding:16px 22px;gap:6px">';
+  html+='<span style="font-size:32px">'+pEmoji+'</span>';
+  html+='<span style="font-family:var(--f2);font-size:11px;font-weight:800;letter-spacing:.18em;color:'+pColor+'">'+pLabel+'</span>';
+  html+='</div></div></div>';
+
+  // ── barra de progreso ──
+  html+='<div style="position:relative;z-index:1;margin-bottom:18px">';
+  html+='<div style="height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden">';
+  html+='<div style="width:'+r.puntaje+'%;height:100%;border-radius:3px;background:linear-gradient(90deg,'+pColor+'88,'+pColor+');transition:width .6s ease"></div>';
+  html+='</div>';
+  html+='<div style="display:flex;justify-content:space-between;margin-top:5px;font-family:var(--f2);font-size:9px;color:'+pColor+'66;letter-spacing:.1em">';
+  html+='<span>0 — CRÍTICO</span><span>50</span><span>76 — CONFORME</span><span>91 — EXCELENTE</span><span>100</span>';
+  html+='</div></div>';
+
+  // ── grid de datos ──
+  var campos=[
+    ['👤 TÉCNICO',r.tecnico||'—'],['🏢 CLIENTE',r.cliente||'—'],
+    ['📋 OP ENSAMBLE',r.op||'—'],['🔢 N° SERIE',r.serie||'—'],
+    ['⚙ TIPO',r.tipo||'—'],['📅 FECHA',r.fecha||'—'],
+    ['👷 SUPERVISOR',r.supervisor||'—'],['🎓 SENIOR',r.senior||'—']
+  ];
+  if(r.horaInicio||r.horaFin) campos.push(['🕐 HORARIO',(r.horaInicio||'—')+' → '+(r.horaFin||'—')]);
+  html+='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;position:relative;z-index:1">';
+  campos.forEach(function(c){
+    html+='<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:9px;padding:8px 11px">'
+      +'<div style="font-family:var(--f2);font-size:8px;font-weight:700;letter-spacing:.16em;color:'+pColor+'88;margin-bottom:3px">'+c[0]+'</div>'
+      +'<div style="font-family:var(--f2);font-size:10px;font-weight:700;color:#e2eaf6;line-height:1.4">'+c[1]+'</div></div>';
+  });
+  html+='</div></div>'; // cierra hero banner
+
+  // ── Tabla de criterios ──
+  html+='<div style="overflow-x:auto;margin-bottom:14px"><table style="min-width:560px"><thead><tr>'
+    +'<th style="width:60px">ÍTEM</th><th>DESCRIPCIÓN</th>'
+    +'<th style="width:130px;text-align:center">EVALUACIÓN</th>'
+    +'<th style="width:70px;text-align:center">PENAL.</th><th>OBSERVACIÓN</th>'
+    +'</tr></thead><tbody>';
+  getCriterios().forEach(function(c){
+    var cv=r.criterios&&r.criterios[c.id];
+    var val=cv?cv.valor:'E';
+    var pen=cv?cv.pen:0;
+    var obs=(cv&&cv.obs)?cv.obs:'—';
+    var vLabel=val==='E'?'EXCELENTE':val==='S'?'SATISFACTORIO':val==='D'?'DEFICIENTE':'CRÍTICO';
+    var bgRow=pen<0?'background:rgba(244,63,94,.04)':'';
+    html+='<tr style="'+bgRow+'">'
+      +'<td><b>'+c.id+'</b></td>'
+      +'<td style="font-size:10px;color:var(--muted2)">'+c.desc+'</td>'
+      +'<td style="text-align:center"><span class="badge badge-'+(val==='E'?'excelente':val==='S'?'conforme':val==='D'?'noconforme':'critico')+'">'+vLabel+'</span></td>'
+      +'<td style="text-align:center;font-family:var(--f2);font-weight:700;color:'+(pen<0?'var(--rose)':'var(--green)')+'">'+pen+'</td>'
+      +'<td style="font-size:10px">'+obs+'</td></tr>';
+  });
+  html+='</tbody></table></div>';
+
+  // ── Recomendaciones ──
+  if(r.reco){
+    html+='<div style="background:linear-gradient(135deg,rgba(245,158,11,.06),rgba(245,158,11,.02));'
+      +'border:1px solid rgba(245,158,11,.25);border-radius:12px;padding:14px 18px">'
+      +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">'
+      +'<span style="font-size:16px">⚠</span>'
+      +'<span style="font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.2em;color:var(--amber)">RECOMENDACIONES / ACCIONES CORRECTIVAS</span>'
+      +'</div>'
+      +'<div style="font-family:var(--f2);font-size:11px;color:var(--muted2);line-height:2.0;letter-spacing:.04em;white-space:pre-wrap">'+r.reco+'</div></div>';
+  }
+
+  document.getElementById('modal-det-body').innerHTML=html;
+  document.getElementById('modal-det-del-btn').onclick=function(){
+    if(confirm('¿ELIMINAR ESTE REGISTRO?')){
+      var arr2=getData().filter(function(x){return x.id!==id;});
+      saveData(arr2);
+      closeModal('modal-detalle');
+      renderDatabase();renderDashboard();renderTecnicos();updateLandingStats();
+      showToast('REGISTRO ELIMINADO','info');
+    }
+  };
+  openModal('modal-detalle');
+}
+
+/* ══════════════════════════════════════════
+   DASHBOARD
+══════════════════════════════════════════ */
+var _charts={};
+function mkChart(id,type,labels,datasets,opts){
+  if(_charts[id]){ _charts[id].destroy(); delete _charts[id]; }
+  var el=document.getElementById(id);
+  if(!el) return;
+  var ctx=el.getContext('2d');
+  _charts[id]=new Chart(ctx,{type:type,data:{labels:labels,datasets:datasets},options:Object.assign({plugins:{legend:{labels:{color:'#7a9ab8',font:{size:9,family:'Space Grotesk'},boxWidth:10,padding:12}}},responsive:true,maintainAspectRatio:true},opts||{})});
+}
+var MULTI=['#4f8ef7','#2dd4bf','#f59e0b','#f43f5e','#8b5cf6','#22c55e','#f97316','#e879f9'];
+
+function renderDashboard(){
+  var arr=getData();
+  if(!arr.length){
+    document.getElementById('dash-kpis').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted);font-family:var(--f2);font-size:11px;letter-spacing:.1em">SIN DATOS — REGISTRA TU PRIMER CHECKLIST</div>';
+    return;
+  }
+  var total=arr.length,
+      prom=Math.round(arr.reduce(function(s,r){return s+r.puntaje;},0)/total),
+      promNota=(arr.reduce(function(s,r){return s+r.nota;},0)/total).toFixed(1),
+      exc=arr.filter(function(r){return r.puntaje>=91;}).length,
+      conf=arr.filter(function(r){return r.puntaje>=76&&r.puntaje<91;}).length,
+      noc=arr.filter(function(r){return r.puntaje>=50&&r.puntaje<76;}).length,
+      crit=arr.filter(function(r){return r.puntaje<50;}).length,
+      bajo=arr.reduce(function(m,r){return Math.min(m,r.puntaje);},100);
+  document.getElementById('dash-kpis').innerHTML=
+    mkMetric('PUNTAJE PROMEDIO',prom+'/100','base 100','m-c-blue')+
+    mkMetric('NOTA PROMEDIO',promNota+'/20','escala 0–20','m-c-teal')+
+    mkMetric('% EXCELENTES',Math.round(exc/total*100)+'%','≥ 91 puntos','m-c-green')+
+    mkMetric('TOTAL INSPECT.',total,'registros','m-c-violet')+
+    mkMetric('PUNTAJE MÍNIMO',bajo,'registro más bajo','m-c-rose');
+  document.getElementById('dash-fecha-txt').textContent='BOOM & VIGAS · '+total+' INSPECCIONES · '+new Date().toLocaleDateString('es-PE',{day:'2-digit',month:'long',year:'numeric'}).toUpperCase();
+  // chart resultados donut
+  mkChart('ch-resultados','doughnut',['EXCELENTE','CONFORME','NO CONFORME','CRÍTICO'],
+    [{data:[exc,conf,noc,crit],backgroundColor:['#22c55e','#4f8ef7','#f59e0b','#f43f5e'],borderWidth:3,borderColor:'rgba(12,16,24,.9)',hoverOffset:6}],
+    {cutout:'58%',plugins:{legend:{position:'bottom',labels:{color:'#7a9ab8',font:{size:9,family:'Space Grotesk'},padding:10,boxWidth:10}}}});
+  // chart evolución mensual
+  var byMes={};
+  arr.forEach(function(r){
+    var d=new Date(r.fecha); var k=(d.getMonth()+1)+'/'+d.getFullYear();
+    if(!byMes[k]){byMes[k]={sum:0,cnt:0};}
+    byMes[k].sum+=r.puntaje; byMes[k].cnt++;
+  });
+  var mesKeys=Object.keys(byMes).sort(function(a,b){var pa=a.split('/'),pb=b.split('/');return (pa[1]-pb[1])||((pa[0]|0)-(pb[0]|0));});
+  mkChart('ch-evolucion','line',mesKeys,
+    [{label:'PUNTAJE PROM.',data:mesKeys.map(function(k){return Math.round(byMes[k].sum/byMes[k].cnt);}),borderColor:'#4f8ef7',backgroundColor:'rgba(79,142,247,.1)',tension:.4,fill:true,pointRadius:4,pointBackgroundColor:'#4f8ef7',borderWidth:2}],
+    {plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7a9ab8',font:{size:9}}},y:{beginAtZero:false,min:50,max:100,grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7a9ab8',font:{size:9}}}}});
+  // chart boom vs vigas
+  var boom=arr.filter(function(r){return r.tipo==='BOOM';}),viga=arr.filter(function(r){return r.tipo==='VIGAS';});
+  var bProm=boom.length?Math.round(boom.reduce(function(s,r){return s+r.puntaje;},0)/boom.length):0;
+  var vProm=viga.length?Math.round(viga.reduce(function(s,r){return s+r.puntaje;},0)/viga.length):0;
+  mkChart('ch-boomvigas','bar',['BOOM','VIGAS'],
+    [{data:[bProm,vProm],backgroundColor:['rgba(79,142,247,.8)','rgba(45,212,191,.8)'],borderRadius:8,borderWidth:0}],
+    {plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:'#7a9ab8',font:{size:10}}},y:{beginAtZero:false,min:50,max:100,grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7a9ab8',font:{size:9}}}}});
+  // chart criterios penalizaciones
+  var cPen={};
+  getCriterios().forEach(function(c){ cPen[c.id]=0; });
+  arr.forEach(function(r){
+    getCriterios().forEach(function(c){
+      if(r.criterios&&r.criterios[c.id]) cPen[c.id]+=(r.criterios[c.id].pen||0);
+    });
+  });
+  var cKeys=Object.keys(cPen).sort(function(a,b){return cPen[a]-cPen[b]});
+  mkChart('ch-criterios','bar',cKeys,
+    [{data:cKeys.map(function(k){return Math.abs(cPen[k]);}),backgroundColor:cKeys.map(function(k,i){return MULTI[i%MULTI.length];}),borderRadius:5,borderWidth:0}],
+    {indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7a9ab8',font:{size:9}}},y:{grid:{display:false},ticks:{color:'#8ba3c4',font:{size:9,family:'Space Grotesk'}}}}});
+  // criteria detail
+  var detHtml='';
+  getCriterios().forEach(function(c,i){
+    var totPen=arr.reduce(function(s,r){return s+(r.criterios&&r.criterios[c.id]?r.criterios[c.id].pen:0);},0);
+    var excPct=Math.round(arr.filter(function(r){return !r.criterios||!r.criterios[c.id]||r.criterios[c.id].pen===0;}).length/total*100);
+    var sem=excPct===100?'🟢':excPct>=70?'🟡':excPct>=40?'🟠':'🔴';
+    detHtml+='<div class="bar-row"><div class="bar-name" style="font-size:9px">'+c.id+'</div>';
+    detHtml+='<div class="bar-track"><div class="bar-fill" style="width:'+excPct+'%;background:'+MULTI[i%MULTI.length]+'"></div></div>';
+    detHtml+='<div class="bar-val">'+sem+' '+excPct+'%</div></div>';
+  });
+  document.getElementById('dash-criterios-detail').innerHTML=detHtml;
+  // últimas 5
+  var ultimas=arr.slice().sort(function(a,b){return b.id-a.id;}).slice(0,5);
+  document.getElementById('dash-ultimas').innerHTML=ultimas.map(function(r){
+    return '<tr><td>'+r.op+'</td><td>'+r.serie+'</td><td>'+r.tecnico+'</td><td>'+r.fecha+'</td>'
+      +'<td><b style="color:'+(r.puntaje>=91?'var(--green)':r.puntaje>=76?'var(--blue)':r.puntaje>=50?'var(--amber)':'var(--rose)')+'">'+r.puntaje+'</b></td>'
+      +'<td><b>'+r.nota+'</b></td><td>'+mkResultBadge(r.resultado)+'</td></tr>';
+  }).join('');
+}
+
+/* ══════════════════════════════════════════
+   TÉCNICOS VIEW
+══════════════════════════════════════════ */
+// Storage for feedback per technician (persisted in localStorage)
+function getTecFeedback(){ try{ return JSON.parse(localStorage.getItem('checkmaster_tec_feedback')||'{}'); }catch(e){ return {}; } }
+function saveTecFeedback(fb){ localStorage.setItem('checkmaster_tec_feedback', JSON.stringify(fb)); }
+function updateTecFeedback(nombre, val){ var fb=getTecFeedback(); fb[nombre]=val.toUpperCase(); saveTecFeedback(fb); }
+
+function renderTecnicos(){
+  var arr=getData();
+  var filtroTipo=(document.getElementById('tec-filtro-tipo').value||'');
+  var filtroPeriodo=(document.getElementById('tec-filtro-periodo').value||'anual');
+  // Filter by period
+  var now=new Date();
+  var filtered=arr.filter(function(r){
+    var mT=!filtroTipo||r.tipo===filtroTipo;
+    var d=new Date(r.fecha);
+    var mP=true;
+    if(filtroPeriodo==='anual')   mP=d.getFullYear()===now.getFullYear();
+    if(filtroPeriodo==='mensual') mP=d.getFullYear()===now.getFullYear()&&d.getMonth()===now.getMonth();
+    if(filtroPeriodo==='semanal'){
+      var startOfWeek=new Date(now); startOfWeek.setDate(now.getDate()-now.getDay());
+      startOfWeek.setHours(0,0,0,0);
+      var endOfWeek=new Date(startOfWeek); endOfWeek.setDate(startOfWeek.getDate()+6); endOfWeek.setHours(23,59,59,999);
+      mP=d>=startOfWeek&&d<=endOfWeek;
+    }
+    return mT&&mP;
+  });
+  if(!filtered.length){
+    document.getElementById('tec-kpis').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted);font-family:var(--f2);font-size:11px;letter-spacing:.1em">SIN DATOS DISPONIBLES</div>';
+    document.getElementById('tec-ranking').innerHTML='';
+    document.getElementById('tec-tbody').innerHTML='<tr><td colspan="11" style="text-align:center;padding:2rem;color:var(--muted)">SIN DATOS</td></tr>';
+    return;
+  }
+  // Group by tecnico
+  var byTec={};
+  filtered.forEach(function(r){
+    var tec=r.tecnico||'SIN ASIGNAR';
+    if(!byTec[tec]) byTec[tec]={nombre:tec,tipo:r.tipo,insp:[],sumPuntaje:0,sumNota:0,exc:0,conf:0,noc:0,crit:0};
+    byTec[tec].insp.push(r);
+    byTec[tec].sumPuntaje+=r.puntaje;
+    byTec[tec].sumNota+=r.nota;
+    if(r.puntaje>=91) byTec[tec].exc++;
+    else if(r.puntaje>=76) byTec[tec].conf++;
+    else if(r.puntaje>=50) byTec[tec].noc++;
+    else byTec[tec].crit++;
+  });
+  var tecList=Object.values(byTec).map(function(t){
+    t.promPuntaje=Math.round(t.sumPuntaje/t.insp.length);
+    t.promNota=(t.sumNota/t.insp.length).toFixed(1);
+    return t;
+  }).sort(function(a,b){return b.promPuntaje-a.promPuntaje;});
+  // KPIs
+  var totalTec=tecList.length,
+      mejorTec=tecList[0],
+      peorTec=tecList[tecList.length-1],
+      promGlobal=Math.round(filtered.reduce(function(s,r){return s+r.puntaje;},0)/filtered.length);
+  document.getElementById('tec-kpis').innerHTML=
+    mkMetric('TÉCNICOS EVALUADOS',totalTec,'en el período','m-c-blue')+
+    mkMetric('MEJOR TÉCNICO',mejorTec.promPuntaje,(mejorTec.nombre.split(' ').slice(0,2).join(' ')),'m-c-green')+
+    mkMetric('PROM. GLOBAL',promGlobal+'/100','todos los técnicos','m-c-teal')+
+    mkMetric('INSPECCIONES',filtered.length,'registros analizados','m-c-violet');
+  // Ranking
+  document.getElementById('tec-ranking').innerHTML=tecList.map(function(t,i){
+    var pct=t.promPuntaje;
+    var color=pct>=91?'var(--green)':pct>=76?'var(--blue)':pct>=50?'var(--amber)':'var(--rose)';
+    return '<div class="rank-card rank-'+(i+1)+'">'
+      +'<div class="rank-num">'+(i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1))+'</div>'
+      +'<div><div class="rank-name">'+t.nombre+'</div>'
+      +'<div class="rank-insp">'+t.insp.length+' INSPECCIONES · '+mkTipoBadge(t.tipo)+'</div></div>'
+      +'<div class="bar-track" style="width:180px"><div class="bar-fill" style="width:'+pct+'%;background:'+color+'"></div></div>'
+      +'<div style="text-align:right;min-width:70px"><div class="rank-score" style="color:'+color+'">'+t.promPuntaje+'</div><div class="rank-note">/100 · NOTA '+t.promNota+'</div></div>'
+      +'</div>';
+  }).join('');
+  var tecFeedback = getTecFeedback();
+  // Tabla detalle
+  document.getElementById('tec-tbody').innerHTML=tecList.map(function(t){
+    var p=t.promPuntaje;
+    var sem=p>=91?'<span class="badge badge-excelente" style="white-space:nowrap">🟢 EXCELENTE</span>':p>=76?'<span class="badge badge-conforme" style="white-space:nowrap">🔵 CONFORME</span>':p>=50?'<span class="badge badge-noconforme" style="white-space:nowrap">🟡 POR MEJORAR</span>':'<span class="badge badge-critico" style="white-space:nowrap">🔴 CRÍTICO</span>';
+    var fbVal = (tecFeedback[t.nombre]||'').replace(/"/g,'&quot;');
+    return '<tr><td><b>'+t.nombre+'</b></td>'
+      +'<td>'+mkTipoBadge(t.tipo)+'</td>'
+      +'<td style="text-align:center"><b>'+t.insp.length+'</b></td>'
+      +'<td><b style="color:'+(p>=91?'var(--green)':p>=76?'var(--blue)':p>=50?'var(--amber)':'var(--rose)')+'">'+p+'</b></td>'
+      +'<td><b>'+t.promNota+'</b></td>'
+      +'<td style="color:var(--green);text-align:center">'+t.exc+'</td>'
+      +'<td style="color:var(--blue);text-align:center">'+t.conf+'</td>'
+      +'<td style="color:var(--amber);text-align:center">'+t.noc+'</td>'
+      +'<td style="color:var(--rose);text-align:center">'+t.crit+'</td>'
+      +'<td style="white-space:nowrap">'+sem+'</td>'
+      +'<td><textarea class="cl-obs-input" style="min-width:200px;min-height:60px;resize:vertical" onchange="updateTecFeedback(\''+t.nombre.replace(/'/g,"\\'") +'\',this.value)">'+fbVal+'</textarea></td>'
+      +'</tr>';
+  }).join('');
+}
+
+/* ══════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════ */
+function mkMetric(lbl,val,sub,cls){
+  return '<div class="metric '+cls+'"><div class="m-lbl">'+lbl+'</div><div class="m-val">'+val+'</div><div class="m-sub">'+sub+'</div></div>';
+}
+function mkResultBadge(r){
+  return '<span class="badge badge-'+(r==='EXCELENTE'?'excelente':r==='CONFORME'?'conforme':r==='NO CONFORME'?'noconforme':'critico')+'">'+r+'</span>';
+}
+function mkTipoBadge(t){
+  if(t==='BOOM') return '<span style="background:rgba(79,142,247,.12);color:var(--blue);border:1px solid rgba(79,142,247,.25);border-radius:5px;padding:2px 8px;font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.1em">BOOM</span>';
+  if(t==='VIGAS') return '<span style="background:rgba(45,212,191,.1);color:var(--teal);border:1px solid rgba(45,212,191,.22);border-radius:5px;padding:2px 8px;font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.1em">VIGAS</span>';
+  return t||'—';
+}
+
+/* ══════════════════════════════════════════
+   EXPORT / IMPORT
+══════════════════════════════════════════ */
+function exportarDatos(){
+  var arr=getData();
+  if(!arr.length){showToast('NO HAY REGISTROS PARA EXPORTAR','error');return;}
+  var blob=new Blob([JSON.stringify({version:'checkmaster_v1',exportado:new Date().toISOString(),registros:arr},null,2)],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='checkmaster_backup_'+new Date().toISOString().slice(0,10)+'.json';a.click();
+  URL.revokeObjectURL(a.href);
+  showToast('BACKUP EXPORTADO: '+arr.length+' REGISTROS','success');
+}
+function importarDatos(){document.getElementById('import-file').click();}
+function procesarImport(e){
+  var file=e.target.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    try{
+      var parsed=JSON.parse(ev.target.result);
+      var regs=Array.isArray(parsed)?parsed:(parsed.registros||[]);
+      if(!regs.length){showToast('ARCHIVO SIN REGISTROS VÁLIDOS','error');return;}
+      var existing=getData();
+      var ids={};existing.forEach(function(r){ids[r.id]=true;});
+      var nuevos=regs.filter(function(r){return !ids[r.id];});
+      var merged=existing.concat(nuevos).sort(function(a,b){return b.id-a.id;});
+      saveData(merged);
+      renderDatabase();renderDashboard();renderTecnicos();updateLandingStats();
+      showToast('IMPORTADOS '+nuevos.length+' NUEVOS REGISTROS','success');
+    }catch(err){showToast('ARCHIVO INVÁLIDO','error');}
+  };
+  reader.readAsText(file);
+  e.target.value='';
+}
+
+function exportarPDF(){
+  var arr=getData();
+  if(!arr.length){showToast('NO HAY DATOS PARA EXPORTAR','error');return;}
+  var total=arr.length,
+      prom=Math.round(arr.reduce(function(s,r){return s+r.puntaje;},0)/total),
+      promNota=(arr.reduce(function(s,r){return s+r.nota;},0)/total).toFixed(1),
+      exc=arr.filter(function(r){return r.puntaje>=91;}).length,
+      crit=arr.filter(function(r){return r.puntaje<50;}).length;
+  var fechaStr=new Date().toLocaleDateString('es-PE',{day:'2-digit',month:'long',year:'numeric'}).toUpperCase();
+  var cPen={};getCriterios().forEach(function(c){cPen[c.id]=0;});
+  arr.forEach(function(r){getCriterios().forEach(function(c){if(r.criterios&&r.criterios[c.id])cPen[c.id]+=(r.criterios[c.id].pen||0);});});
+  var w=window.open('','_blank','width=960,height=720');
+  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>REPORTE — CHECKMASTER</title><style>'
+    +'body{font-family:"Segoe UI",Arial,sans-serif;background:#fff;color:#111;margin:0}'
+    +'@page{size:A4;margin:16mm 14mm}'
+    +'@media print{.no-print{display:none}.pb{page-break-before:always}}'
+    +'.cover{background:linear-gradient(135deg,#060810 0%,#0c1830 40%,#061420 100%);color:#fff;padding:52px 56px}'
+    +'.clogo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#4f8ef7,#2dd4bf);display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;margin-bottom:48px}'
+    +'h1{font-size:40px;font-weight:700;letter-spacing:.04em;margin:0 0 6px;color:#e2eaf6}'
+    +'.accent{background:linear-gradient(135deg,#4f8ef7,#2dd4bf);-webkit-background-clip:text;-webkit-text-fill-color:transparent}'
+    +'.csub{font-size:12px;color:rgba(122,154,184,.8);letter-spacing:.14em;margin-bottom:44px}'
+    +'.cs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}'
+    +'.cs{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:18px 20px}'
+    +'.cs-v{font-size:28px;font-weight:700;line-height:1;margin-bottom:5px}'
+    +'.cs-l{font-size:9px;letter-spacing:.18em;color:rgba(122,154,184,.7);font-weight:600}'
+    +'.body{padding:36px 52px}'
+    +'.st{font-size:9px;font-weight:700;letter-spacing:.22em;color:#6b7a99;text-transform:uppercase;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #4f8ef7;display:inline-block}'
+    +'table{width:100%;border-collapse:collapse;margin-bottom:24px}'
+    +'th{background:#f0f4fb;padding:9px 12px;text-align:left;font-size:9px;font-weight:700;letter-spacing:.14em;color:#6b7a99;border-bottom:2px solid #dde4f0}'
+    +'td{padding:9px 12px;border-bottom:1px solid #edf0f7;font-size:11px}'
+    +'tr:nth-child(even) td{background:#fafbfe}'
+    +'.bar-w{background:#e8ecf4;border-radius:4px;height:7px;width:180px}'
+    +'.bar-i{height:7px;border-radius:4px}'
+    +'.ft{margin-top:36px;padding-top:14px;border-top:1px solid #e0e4ef;display:flex;justify-content:space-between;font-size:9px;color:#9aa3b5;letter-spacing:.1em}'
+    +'.pbtn{position:fixed;bottom:22px;right:22px;background:linear-gradient(135deg,#4f8ef7,#2dd4bf);color:#fff;border:none;border-radius:12px;padding:12px 22px;font-size:12px;font-weight:700;letter-spacing:.14em;cursor:pointer;box-shadow:0 4px 20px rgba(79,142,247,.4)}'
+    +'</style></head><body>'
+    +'<div class="cover">'
+    +'<div class="clogo">CM</div>'
+    +'<h1>REPORTE <span class="accent">EJECUTIVO</span></h1>'
+    +'<h1 style="color:#2dd4bf;margin-bottom:8px">CHECK LIST BOOM & VIGAS</h1>'
+    +'<div class="csub">JEFATURA DE CONTROL DE CALIDAD · RESEMIN S.A. · '+fechaStr+'</div>'
+    +'<div class="cs-grid">'
+    +'<div class="cs"><div class="cs-v" style="color:#4f8ef7">'+prom+'</div><div class="cs-l">PUNTAJE PROM. /100</div></div>'
+    +'<div class="cs"><div class="cs-v" style="color:#f59e0b">'+promNota+'</div><div class="cs-l">NOTA PROM. /20</div></div>'
+    +'<div class="cs"><div class="cs-v" style="color:#22c55e">'+Math.round(exc/total*100)+'%</div><div class="cs-l">% EXCELENTES</div></div>'
+    +'<div class="cs"><div class="cs-v" style="color:#e2eaf6">'+total+'</div><div class="cs-l">INSPECCIONES</div></div>'
+    +'</div></div>'
+    +'<div class="body">'
+    +'<div class="st">DISTRIBUCIÓN DE RESULTADOS</div>'
+    +'<table><thead><tr><th>RESULTADO</th><th>CANTIDAD</th><th>%</th><th>NOTA</th></tr></thead><tbody>'
+    +'<tr><td style="color:#22c55e;font-weight:700">🟢 EXCELENTE (≥91)</td><td>'+exc+'</td><td>'+Math.round(exc/total*100)+'%</td><td>20</td></tr>'
+    +'<tr><td style="color:#4f8ef7;font-weight:700">🔵 CONFORME (76-90)</td><td>'+arr.filter(function(r){return r.puntaje>=76&&r.puntaje<91;}).length+'</td><td>'+Math.round(arr.filter(function(r){return r.puntaje>=76&&r.puntaje<91;}).length/total*100)+'%</td><td>16</td></tr>'
+    +'<tr><td style="color:#f59e0b;font-weight:700">🟡 NO CONFORME (50-75)</td><td>'+arr.filter(function(r){return r.puntaje>=50&&r.puntaje<76;}).length+'</td><td>'+Math.round(arr.filter(function(r){return r.puntaje>=50&&r.puntaje<76;}).length/total*100)+'%</td><td>08</td></tr>'
+    +'<tr><td style="color:#f43f5e;font-weight:700">🔴 CRÍTICO (&lt;50)</td><td>'+crit+'</td><td>'+Math.round(crit/total*100)+'%</td><td>00</td></tr>'
+    +'</tbody></table>'
+    +'<div class="st pb">PENALIZACIONES POR CRITERIO</div>'
+    +'<table><thead><tr><th>ÍTEM</th><th>DESCRIPCIÓN</th><th>PENALIZ. TOTAL</th><th>PROGRESO</th></tr></thead><tbody>'
+    +getCriterios().map(function(c){
+      var p=Math.abs(cPen[c.id]);
+      var maxP=total*25;
+      var pct=maxP?Math.round(p/maxP*100):0;
+      return '<tr><td style="font-weight:700">'+c.id+'</td><td style="font-size:10px">'+c.desc.substring(0,60)+'...</td>'
+        +'<td style="font-weight:700;color:'+(p>0?'#f43f5e':'#22c55e')+'">'+p+' pts</td>'
+        +'<td><div class="bar-w"><div class="bar-i" style="width:'+pct+'%;background:'+(p>50?'#f43f5e':p>20?'#f59e0b':'#22c55e')+'"></div></div></td></tr>';
+    }).join('')
+    +'</tbody></table>'
+    +'<div class="st">ÚLTIMAS 10 INSPECCIONES</div>'
+    +'<table><thead><tr><th>CÓDIGO</th><th>FECHA</th><th>TIPO</th><th>OP</th><th>TÉCNICO</th><th>PUNTAJE</th><th>NOTA</th><th>RESULTADO</th></tr></thead><tbody>'
+    +arr.slice().sort(function(a,b){return b.id-a.id;}).slice(0,10).map(function(r){
+      return '<tr><td><b>'+r.codigo+'</b></td><td>'+r.fecha+'</td><td>'+r.tipo+'</td><td>'+r.op+'</td><td style="font-size:10px">'+r.tecnico+'</td>'
+        +'<td><b style="color:'+(r.puntaje>=91?'#22c55e':r.puntaje>=76?'#4f8ef7':r.puntaje>=50?'#f59e0b':'#f43f5e')+'">'+r.puntaje+'</b></td>'
+        +'<td><b>'+r.nota+'</b></td><td>'+r.resultado+'</td></tr>';
+    }).join('')
+    +'</tbody></table>'
+    +'<div class="ft"><span>CHECKMASTER · BOOM & VIGAS · RESEMIN S.A.</span><span>'+fechaStr+'</span></div>'
+    +'</div>'
+    +'<button class="pbtn no-print" onclick="window.print();this.style.display=\'none\'">🖨 IMPRIMIR / GUARDAR PDF</button>'
+    +'</body></html>';
+  w.document.write(html);w.document.close();w.focus();
+  setTimeout(function(){showToast('PDF LISTO — USA CTRL+P PARA GUARDAR','success');},400);
+}
+
+function exportarPDFTecnicos(){
+  var arr=getData();
+  if(!arr.length){showToast('NO HAY DATOS PARA EXPORTAR','error');return;}
+  var filtroTipo=(document.getElementById('tec-filtro-tipo').value||'');
+  var filtroPeriodo=(document.getElementById('tec-filtro-periodo').value||'anual');
+  var now=new Date();
+  var filtered=arr.filter(function(r){
+    var mT=!filtroTipo||r.tipo===filtroTipo;
+    var d=new Date(r.fecha); var mP=true;
+    if(filtroPeriodo==='anual')   mP=d.getFullYear()===now.getFullYear();
+    if(filtroPeriodo==='mensual') mP=d.getFullYear()===now.getFullYear()&&d.getMonth()===now.getMonth();
+    if(filtroPeriodo==='semanal'){var sw=new Date(now);sw.setDate(now.getDate()-now.getDay());sw.setHours(0,0,0,0);var ew=new Date(sw);ew.setDate(sw.getDate()+6);ew.setHours(23,59,59,999);mP=d>=sw&&d<=ew;}
+    return mT&&mP;
+  });
+  var byTec={};
+  filtered.forEach(function(r){
+    var tec=r.tecnico||'SIN ASIGNAR';
+    if(!byTec[tec]) byTec[tec]={nombre:tec,tipos:[],insp:[],sumP:0,sumN:0,exc:0,conf:0,noc:0,crit:0};
+    byTec[tec].insp.push(r);byTec[tec].sumP+=r.puntaje;byTec[tec].sumN+=r.nota;
+    if(r.tipo && byTec[tec].tipos.indexOf(r.tipo)===-1) byTec[tec].tipos.push(r.tipo);
+    if(r.puntaje>=91) byTec[tec].exc++;
+    else if(r.puntaje>=76) byTec[tec].conf++;
+    else if(r.puntaje>=50) byTec[tec].noc++;
+    else byTec[tec].crit++;
+  });
+  var tecList=Object.values(byTec).map(function(t){t.pp=Math.round(t.sumP/t.insp.length);t.pn=(t.sumN/t.insp.length).toFixed(1);t.tipoLabel=t.tipos.join(' / ')||'—';return t;}).sort(function(a,b){return b.pp-a.pp;});
+  var tecFeedback=getTecFeedback();
+  var fechaStr=new Date().toLocaleDateString('es-PE',{day:'2-digit',month:'long',year:'numeric'}).toUpperCase();
+  var periodoLabel=filtroPeriodo==='anual'?'AÑO '+now.getFullYear():filtroPeriodo==='mensual'?new Date().toLocaleDateString('es-PE',{month:'long',year:'numeric'}).toUpperCase():'SEMANA DEL '+new Date(now.setDate(now.getDate()-now.getDay())).toLocaleDateString('es-PE',{day:'2-digit',month:'long'}).toUpperCase();
+  var w=window.open('','_blank','width=1100,height=720');
+  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>REPORTE TÉCNICOS</title><style>'
+    +'body{font-family:"Segoe UI",Arial,sans-serif;background:#fff;color:#111;margin:0}'
+    +'@page{size:A4 landscape;margin:12mm 10mm}'
+    +'@media print{.no-print{display:none}}'
+    +'.cover{background:linear-gradient(135deg,#060810,#0c1830);color:#fff;padding:44px 50px}'
+    +'.clogo{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#4f8ef7,#2dd4bf);display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:#fff;margin-bottom:40px}'
+    +'h1{font-size:36px;font-weight:700;margin:0 0 8px;color:#e2eaf6}'
+    +'.csub{font-size:11px;color:rgba(122,154,184,.8);letter-spacing:.14em;margin-bottom:32px}'
+    +'.body{padding:32px 50px}'
+    +'.st{font-size:9px;font-weight:700;letter-spacing:.22em;color:#6b7a99;text-transform:uppercase;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #4f8ef7;display:inline-block}'
+    +'table{width:100%;border-collapse:collapse;margin-bottom:24px}'
+    +'th{background:#f0f4fb;padding:8px 10px;text-align:left;font-size:9px;font-weight:700;letter-spacing:.12em;color:#6b7a99;border-bottom:2px solid #dde4f0}'
+    +'td{padding:8px 10px;border-bottom:1px solid #edf0f7;font-size:11px;vertical-align:top}'
+    +'tr:nth-child(even) td{background:#fafbfe}'
+    +'.feedback-col{font-size:10px;color:#374151;line-height:1.5;min-width:180px;white-space:pre-wrap}'
+    +'.ft{margin-top:32px;padding-top:14px;border-top:1px solid #e0e4ef;display:flex;justify-content:space-between;font-size:9px;color:#9aa3b5;letter-spacing:.1em}'
+    +'.pbtn{position:fixed;bottom:22px;right:22px;background:linear-gradient(135deg,#4f8ef7,#2dd4bf);color:#fff;border:none;border-radius:12px;padding:12px 22px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(79,142,247,.4)}'
+    +'</style></head><body>'
+    +'<div class="cover"><div class="clogo">CM</div><h1>REPORTE DE TÉCNICOS</h1><h1 style="color:#2dd4bf;margin-bottom:8px">EVALUACIÓN DE DESEMPEÑO</h1>'
+    +'<div class="csub">RECURSOS HUMANOS · RESEMIN S.A. · '+fechaStr+' · PERÍODO: '+periodoLabel+'</div></div>'
+    +'<div class="body"><div class="st">RANKING CONSOLIDADO POR TÉCNICO</div>'
+    +'<table><thead><tr>'
+    +'<th>#</th><th>TÉCNICO</th><th>TIPO</th><th>INSP.</th><th>PUNTAJE PROM.</th><th>NOTA PROM.</th><th>EXCEL.</th><th>CONF.</th><th>NO CONF.</th><th>CRÍT.</th><th>SEMÁFORO</th><th>FEEDBACK DEL INSPECTOR</th>'
+    +'</tr></thead><tbody>'
+    +tecList.map(function(t,i){
+      var sem=t.pp>=91?'🟢 EXCELENTE':t.pp>=76?'🔵 CONFORME':t.pp>=50?'🟡 POR MEJORAR':'🔴 CRÍTICO';
+      var fb=(tecFeedback[t.nombre]||'—').toUpperCase();
+      return '<tr><td style="font-weight:700">'+(i+1)+'</td><td style="font-weight:700">'+t.nombre+'</td>'
+        +'<td>'+t.tipoLabel+'</td>'
+        +'<td style="text-align:center">'+t.insp.length+'</td>'
+        +'<td style="font-weight:700;color:'+(t.pp>=91?'#22c55e':t.pp>=76?'#4f8ef7':t.pp>=50?'#f59e0b':'#f43f5e')+'">'+t.pp+'</td>'
+        +'<td style="font-weight:700">'+t.pn+'</td>'
+        +'<td style="text-align:center;color:#22c55e">'+t.exc+'</td>'
+        +'<td style="text-align:center;color:#4f8ef7">'+t.conf+'</td>'
+        +'<td style="text-align:center;color:#f59e0b">'+t.noc+'</td>'
+        +'<td style="text-align:center;color:#f43f5e">'+t.crit+'</td>'
+        +'<td>'+sem+'</td>'
+        +'<td class="feedback-col">'+fb+'</td>'
+        +'</tr>';
+    }).join('')
+    +'</tbody></table>'
+    +'<div class="ft"><span>CHECKMASTER · EVALUACIÓN TÉCNICOS · RESEMIN S.A.</span><span>'+fechaStr+'</span></div></div>'
+    +'<button class="pbtn no-print" onclick="window.print();this.style.display=\'none\'">🖨 IMPRIMIR / GUARDAR PDF</button>'
+    +'</body></html>';
+  w.document.write(html);w.document.close();w.focus();
+  setTimeout(function(){showToast('REPORTE TÉCNICOS LISTO','success');},400);
+}
+
+
+/* ══════════════════════════════════════════
+   CONFIG — BLOQUES & ÍTEMS
+══════════════════════════════════════════ */
+var _cfgEditBloqueId = null;
+var _cfgEditItemBloqueId = null;
+var _cfgEditItemId = null;
+var _cfgEditListaKey = null;
+var _cfgEditListaIdx = null;
+
+function switchCfgTab(tab){
+  ['bloques','listas'].forEach(function(t){
+    document.getElementById('cfg-panel-'+t).style.display = t===tab?'block':'none';
+    var btn = document.getElementById('ctab-'+t);
+    if(btn){
+      btn.style.borderBottomColor = t===tab?'var(--blue)':'transparent';
+      btn.style.color = t===tab?'var(--blue)':'var(--muted2)';
+    }
+  });
+  if(tab==='bloques') renderCfgBloques();
+  if(tab==='listas')  renderCfgListas();
+}
+
+/* ── BLOQUES ── */
+function renderCfgBloques(){
+  var bloques = getBloques();
+  var container = document.getElementById('cfg-bloques-list');
+  if(!container) return;
+  if(!bloques.length){
+    container.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--muted);font-family:var(--f2);font-size:11px;letter-spacing:.1em">SIN BLOQUES CONFIGURADOS. CREA EL PRIMERO.</div>';
+    return;
+  }
+  container.innerHTML = bloques.map(function(b,bi){
+    var itemsHtml = (b.items||[]).map(function(it,ii){
+      return '<div style="display:flex;align-items:center;gap:10px;background:var(--s2);border:1px solid var(--brd);border-radius:9px;padding:9px 13px;margin-bottom:7px">'
+        +'<div style="font-family:var(--f2);font-size:10px;font-weight:700;color:var(--muted2);min-width:36px;letter-spacing:.1em">'+it.id+'</div>'
+        +'<div style="flex:1;font-family:var(--f2);font-size:11px;font-weight:600;color:var(--txt);letter-spacing:.06em;line-height:2.0">'+it.desc+'</div>'
+        +'<div style="display:flex;gap:6px;flex-shrink:0">'
+        +'<button data-bid="'+b.id+'" data-ii="'+ii+'" data-action="edit-item" style="background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.25);border-radius:7px;padding:5px 10px;cursor:pointer;color:var(--blue);font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.1em;transition:all .15s">&#9998; EDITAR</button>'
+        +'<button data-bid="'+b.id+'" data-ii="'+ii+'" data-action="del-item" style="background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.25);border-radius:7px;padding:5px 10px;cursor:pointer;color:var(--rose);font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.1em;transition:all .15s">&#128465;</button>'
+        +'</div></div>';
+    }).join('');
+    return '<div style="background:var(--s1);border:1px solid var(--brd);border-radius:16px;padding:1.3rem 1.4rem;margin-bottom:14px">'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--brd)">'
+      +'<div style="display:flex;align-items:center;gap:12px">'
+      +'<div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--teal));display:flex;align-items:center;justify-content:center;font-family:var(--f2);font-size:14px;font-weight:800;color:#fff;flex-shrink:0">'+b.letra+'</div>'
+      +'<div><div style="font-family:var(--f2);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--txt)">BLOQUE '+b.letra+' — '+b.nombre+'</div>'
+      +'<div style="font-size:10px;color:var(--muted2);margin-top:2px;letter-spacing:.08em">'+b.desc+'</div></div>'
+      +'</div>'
+      +'<div style="display:flex;gap:8px">'
+      +'<span style="font-family:var(--f2);font-size:10px;font-weight:700;color:var(--muted);background:var(--s3);padding:3px 10px;border-radius:20px;letter-spacing:.1em">'+(b.items||[]).length+' ÍTEMS</span>'
+      +'<button data-bid="'+b.id+'" data-action="edit-bloque" style="background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.25);border-radius:8px;padding:6px 12px;cursor:pointer;color:var(--blue);font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.1em">&#9998; EDITAR</button>'
+      +(bloques.length>1?'<button data-bid="'+b.id+'" data-action="del-bloque" style="background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.25);border-radius:8px;padding:6px 12px;cursor:pointer;color:var(--rose);font-family:var(--f2);font-size:9px;font-weight:700;letter-spacing:.1em">&#128465; ELIMINAR</button>':'')
+      +'</div></div>'
+      +'<div>'+itemsHtml+'</div>'
+      +'<button data-bid="'+b.id+'" data-action="add-item" style="width:100%;background:rgba(79,142,247,.05);border:1px dashed rgba(79,142,247,.25);border-radius:9px;padding:9px;cursor:pointer;color:var(--blue);font-family:var(--f2);font-size:10px;font-weight:700;letter-spacing:.12em;margin-top:8px;transition:all .15s">'
+      +'+ AGREGAR ÍTEM AL BLOQUE '+b.letra+'</button>'
+      +'</div>';
+  }).join('');
+  // update landing counter
+  var lcEl = document.getElementById('ld-n-crit');
+  if(lcEl) lcEl.textContent = getCriterios().length;
+}
+
+function abrirModalBloque(bloqueId){
+  _cfgEditBloqueId = bloqueId||null;
+  var bloques = getBloques();
+  var b = bloqueId ? bloques.find(function(x){return x.id===bloqueId;}) : null;
+  document.getElementById('modal-bloque-title').textContent = b?'EDITAR BLOQUE':'NUEVO BLOQUE';
+  document.getElementById('mb-letra').value = b?b.letra:'';
+  document.getElementById('mb-nombre').value = b?b.nombre:'';
+  document.getElementById('mb-desc').value = b?b.desc:'';
+  openModal('modal-bloque');
+}
+
+function guardarBloque(){
+  var letra = document.getElementById('mb-letra').value.trim().toUpperCase();
+  var nombre = document.getElementById('mb-nombre').value.trim().toUpperCase();
+  var desc = document.getElementById('mb-desc').value.trim().toUpperCase();
+  if(!letra||!nombre){ showToast('COMPLETA LETRA Y NOMBRE','error'); return; }
+  var bloques = getBloques();
+  if(_cfgEditBloqueId){
+    var idx = bloques.findIndex(function(b){return b.id===_cfgEditBloqueId;});
+    if(idx>=0){ bloques[idx].letra=letra; bloques[idx].nombre=nombre; bloques[idx].desc=desc; }
+  } else {
+    bloques.push({ id:'bloq-'+Date.now(), letra:letra, nombre:nombre, desc:desc, items:[] });
+  }
+  saveBloques(bloques);
+  renderCfgBloques();
+  buildChecklistHTML();
+  closeModal('modal-bloque');
+  showToast('BLOQUE '+(letra)+' GUARDADO','success');
+}
+
+function eliminarBloque(bloqueId){
+  if(!confirm('¿ELIMINAR ESTE BLOQUE Y TODOS SUS ÍTEMS?')) return;
+  var bloques = getBloques().filter(function(b){return b.id!==bloqueId;});
+  saveBloques(bloques);
+  renderCfgBloques();
+  buildChecklistHTML();
+  showToast('BLOQUE ELIMINADO','info');
+}
+
+/* ── ÍTEMS ── */
+function abrirModalItem(bloqueId, itemIdx){
+  _cfgEditItemBloqueId = bloqueId;
+  _cfgEditItemId = (itemIdx!==null && itemIdx!==undefined) ? itemIdx : null;
+  var bloques = getBloques();
+  var b = bloques.find(function(x){return x.id===bloqueId;});
+  var it = (_cfgEditItemId!==null && b) ? b.items[_cfgEditItemId] : null;
+  document.getElementById('modal-item-title').textContent = it?'EDITAR ÍTEM':'NUEVO ÍTEM';
+  document.getElementById('modal-item-sub').textContent = 'BLOQUE '+(b?b.letra:'')+ ' — '+(b?b.nombre:'');
+  document.getElementById('mi-desc').value = it?it.desc:'';
+  openModal('modal-item');
+}
+
+function guardarItem(){
+  var desc = document.getElementById('mi-desc').value.trim();
+  if(!desc){ showToast('ESCRIBE LA DESCRIPCIÓN DEL ÍTEM','error'); return; }
+  var bloques = getBloques();
+  var bIdx = bloques.findIndex(function(b){return b.id===_cfgEditItemBloqueId;});
+  if(bIdx<0) return;
+  var b = bloques[bIdx];
+  var letra = b.letra;
+  if(_cfgEditItemId!==null){
+    b.items[_cfgEditItemId].desc = desc;
+  } else {
+    var num = (b.items||[]).length + 1;
+    // find bloque number (A=1, B=2...)
+    var bNum = bloques.indexOf(b)+1;
+    var newId = bNum+'.'+num;
+    b.items.push({ id:newId, desc:desc });
+  }
+  saveBloques(bloques);
+  renderCfgBloques();
+  buildChecklistHTML();
+  closeModal('modal-item');
+  showToast('ÍTEM GUARDADO','success');
+}
+
+function eliminarItem(bloqueId, itemIdx){
+  if(!confirm('¿ELIMINAR ESTE ÍTEM?')) return;
+  var bloques = getBloques();
+  var bIdx = bloques.findIndex(function(b){return b.id===bloqueId;});
+  if(bIdx<0) return;
+  bloques[bIdx].items.splice(itemIdx,1);
+  // re-number items
+  bloques[bIdx].items.forEach(function(it,i){
+    var parts = it.id.split('.');
+    it.id = parts[0]+'.'+(i+1);
+  });
+  saveBloques(bloques);
+  renderCfgBloques();
+  buildChecklistHTML();
+  showToast('ÍTEM ELIMINADO','info');
+}
+
+/* ══════════════════════════════════════════
+   CONFIG — LISTAS DESPLEGABLES
+══════════════════════════════════════════ */
+function renderCfgListas(){
+  var listas = getListas();
+  var COLORS = ['#4f8ef7','#2dd4bf','#f59e0b','#8b5cf6','#f43f5e','#22c55e'];
+  var keys = Object.keys(listas);
+  var grid = document.getElementById('cfg-listas-grid');
+  if(!grid) return;
+  grid.innerHTML = keys.map(function(key,ki){
+    var lista = listas[key];
+    var color = COLORS[ki%COLORS.length];
+    var itemsHtml = (lista.items||[]).map(function(v,vi){
+      return '<div style="display:flex;align-items:center;gap:8px;background:var(--s2);border:1px solid var(--brd);border-radius:9px;padding:9px 12px;margin-bottom:6px">'
+        +'<div style="flex:1;font-family:var(--f2);font-size:11px;font-weight:700;color:var(--txt);letter-spacing:.08em;line-height:2.0">'+v+'</div>'
+        +'<button data-lkey="'+key+'" data-lvi="'+vi+'" data-action="edit-lista" style="background:rgba(79,142,247,.08);border:1px solid rgba(79,142,247,.25);cursor:pointer;color:var(--blue);padding:4px 8px;border-radius:5px;font-family:var(--f2);font-size:10px;font-weight:700;transition:all .15s;line-height:1.9">&#9998;</button>'
+        +'<button data-lkey="'+key+'" data-lvi="'+vi+'" data-action="del-lista" style="background:rgba(244,63,94,.08);border:1px solid rgba(244,63,94,.25);cursor:pointer;color:var(--rose);padding:4px 8px;border-radius:5px;font-family:var(--f2);font-size:10px;font-weight:700;transition:all .15s;line-height:1.9">&#128465;</button>'
+        +'</div>';
+    }).join('');
+    return '<div style="background:var(--s1);border:1px solid var(--brd);border-radius:16px;padding:18px 18px 14px">'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--brd)">'
+      +'<div style="display:flex;align-items:center;gap:8px;font-family:var(--f2);font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--txt)">'
+      +'<div style="width:8px;height:8px;border-radius:50%;background:'+color+';flex-shrink:0"></div>'+lista.label+'</div>'
+      +'<span style="font-family:var(--f2);font-size:9px;font-weight:700;color:var(--muted);background:var(--s3);padding:2px 9px;border-radius:20px;letter-spacing:.08em">'+(lista.items||[]).length+' ÍTEMS</span>'
+      +'</div>'
+      +'<div style="max-height:200px;overflow-y:auto;margin-bottom:10px">'+itemsHtml+'</div>'
+      +'<div style="display:flex;gap:7px">'
+      +'<input type="text" id="li-inp-'+key+'" placeholder="NUEVA OPCI\u00d3N..." style="flex:1;font-size:11px;background:var(--s2);border:1px solid var(--brd);border-radius:9px;color:var(--txt);font-family:var(--f2);font-weight:700;padding:8px 12px;letter-spacing:.1em;text-transform:uppercase;outline:none" data-lkey="'+key+'" data-action="add-lista-enter">'
+      +'<button data-lkey="'+key+'" data-action="add-lista-btn" style="background:'+color+';color:#060810;border:none;border-radius:9px;padding:8px 14px;cursor:pointer;font-family:var(--f2);font-size:11px;font-weight:800;letter-spacing:.12em;transition:all .2s;display:flex;align-items:center;gap:5px;flex-shrink:0">+ AGREGAR</button>'
+      +'</div></div>';
+  }).join('');
+  // update selects if checklist is open
+  poblarSelects();
+}
+
+function agregarOpcionDirecta(key){
+  var inp = document.getElementById('li-inp-'+key);
+  if(!inp) return;
+  var val = inp.value.trim().toUpperCase();
+  if(!val){ showToast('ESCRIBE UN VALOR','error'); return; }
+  var listas = getListas();
+  if(!(listas[key].items||[]).includes(val)){
+    listas[key].items.push(val);
+    saveListas(listas);
+    renderCfgListas();
+    poblarSelects();
+    showToast('OPCIÓN "'+val+'" AGREGADA','success');
+  } else { showToast('ESA OPCIÓN YA EXISTE','info'); }
+  inp.value='';
+}
+
+function abrirModalListaOp(key, idx){
+  _cfgEditListaKey = key; _cfgEditListaIdx = idx;
+  var listas = getListas();
+  var val = (idx!==null && idx!==undefined) ? listas[key].items[idx] : '';
+  document.getElementById('modal-lista-title').textContent = idx!==null?'EDITAR OPCIÓN':'NUEVA OPCIÓN';
+  document.getElementById('modal-lista-sub').textContent = listas[key].label;
+  document.getElementById('ml-valor').value = val||'';
+  openModal('modal-lista-op');
+}
+
+function guardarOpcionLista(){
+  var val = document.getElementById('ml-valor').value.trim().toUpperCase();
+  if(!val){ showToast('ESCRIBE UN VALOR','error'); return; }
+  var listas = getListas();
+  if(_cfgEditListaIdx!==null){
+    listas[_cfgEditListaKey].items[_cfgEditListaIdx] = val;
+  } else {
+    if(!listas[_cfgEditListaKey].items.includes(val)) listas[_cfgEditListaKey].items.push(val);
+  }
+  saveListas(listas);
+  renderCfgListas();
+  poblarSelects();
+  closeModal('modal-lista-op');
+  showToast('OPCIÓN GUARDADA','success');
+}
+
+function eliminarOpcionLista(key, idx){
+  if(!confirm('¿ELIMINAR ESTA OPCIÓN?')) return;
+  var listas = getListas();
+  listas[key].items.splice(idx,1);
+  saveListas(listas);
+  renderCfgListas();
+  poblarSelects();
+  showToast('OPCIÓN ELIMINADA','info');
+}
+
+/* ══════════════════════════════════════════
+   POBLAR SELECTS (formulario checklist)
+══════════════════════════════════════════ */
+function poblarSelects(){
+  var listas = getListas();
+  // cliente
+  var selCliente = document.getElementById('f-cliente');
+  if(selCliente && selCliente.tagName!=='SELECT'){
+    // convert to select
+  }
+  // supervisor
+  var sup = document.getElementById('f-supervisor');
+  if(sup){ poblarSelect(sup, listas.supervisor ? listas.supervisor.items : []); }
+  var sen = document.getElementById('f-senior');
+  if(sen){ poblarSelect(sen, listas.senior ? listas.senior.items : []); }
+}
+
+function poblarSelect(el, items){
+  if(!el || !items.length) return;
+  if(el.tagName === 'INPUT'){
+    // add datalist
+    var dlId = el.id+'-dl';
+    var dl = document.getElementById(dlId);
+    if(!dl){ dl=document.createElement('datalist'); dl.id=dlId; el.parentNode.appendChild(dl); el.setAttribute('list',dlId); }
+    dl.innerHTML = items.map(function(v){ return '<option value="'+v+'">'; }).join('');
+  }
+}
+
+/* ══════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════ */
+function switchView(v){
+  ['checklist','database','dashboard','tecnicos','config'].forEach(function(id){
+    document.getElementById('view-'+id).classList.toggle('active',id===v);
+    document.getElementById('tab-'+id).classList.toggle('active',id===v);
+  });
+  if(v==='database') renderDatabase();
+  if(v==='dashboard') setTimeout(renderDashboard,60);
+  if(v==='tecnicos') renderTecnicos();
+  if(v==='config'){ renderCfgBloques(); }
+}
+
+function enterApp(){
+  var ld=document.getElementById('landing');
+  ld.classList.add('exiting');
+  setTimeout(function(){
+    ld.style.display='none';
+    var app=document.getElementById('app');
+    app.classList.add('visible');
+    buildChecklistHTML();
+  },420);
+}
+
+function goHome(){
+  var app=document.getElementById('app');
+  app.classList.remove('visible');
+  var ld=document.getElementById('landing');
+  ld.style.display='flex';ld.classList.remove('exiting');
+  ld.style.opacity='0';ld.style.transform='scale(.98)';ld.style.transition='opacity .35s ease,transform .35s ease';
+  requestAnimationFrame(function(){requestAnimationFrame(function(){ld.style.opacity='1';ld.style.transform='scale(1)';});});
+  setTimeout(function(){ld.style.transition='';},380);
+  updateLandingStats();
+}
+
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.addEventListener('click',function(e){if(e.target&&e.target.classList.contains('modal-overlay'))closeModal(e.target.id);});
+
+/* TOAST */
+function showToast(msg,type){
+  var t=document.getElementById('toast');
+  var d=document.getElementById('toast-dot');
+  var m=document.getElementById('toast-msg');
+  m.textContent=msg;
+  var c=type==='success'?'var(--green)':type==='error'?'var(--rose)':type==='info'?'var(--blue)':'var(--amber)';
+  d.style.background=c;d.style.boxShadow='0 0 8px '+c;
+  t.style.borderColor=type==='success'?'rgba(34,197,94,.3)':type==='error'?'rgba(244,63,94,.3)':'rgba(79,142,247,.3)';
+  t.classList.add('show');
+  clearTimeout(t._to);t._to=setTimeout(function(){t.classList.remove('show');},3200);
+}
+
+/* LANDING STATS */
+function updateLandingStats(){
+  var arr=getData();
+  var n=arr.length;
+  var prom=n?Math.round(arr.reduce(function(s,r){return s+r.puntaje;},0)/n):0;
+  var exc=n?Math.round(arr.filter(function(r){return r.puntaje>=91;}).length/n*100):0;
+  var rEl=document.getElementById('ld-n-insp');
+  var pEl=document.getElementById('ld-n-prom');
+  var eEl=document.getElementById('ld-n-exc');
+  if(rEl) rEl.textContent=n||'0';
+  if(pEl) pEl.textContent=n?(prom+'/100'):'—';
+  if(eEl) eEl.textContent=n?(exc+'%'):'0%';
+  var de=document.getElementById('ld-date');
+  if(de) de.textContent=new Date().toLocaleDateString('es-PE',{weekday:'long',day:'2-digit',month:'long',year:'numeric'}).toUpperCase();
+}
+
+
+/* ── Delegated events for config buttons ── */
+document.addEventListener('keydown', function(e){
+  var btn = e.target.closest('[data-action="add-lista-enter"]');
+  if(btn && e.key === 'Enter') { e.preventDefault(); agregarOpcionDirecta(btn.getAttribute('data-lkey')); }
+});
+document.addEventListener('click', function(e){
+  var btn = e.target.closest('[data-action]');
+  if(!btn) return;
+  var action = btn.getAttribute('data-action');
+  var bid    = btn.getAttribute('data-bid');
+  var ii     = btn.getAttribute('data-ii');
+  if(action === 'edit-bloque') abrirModalBloque(bid);
+  if(action === 'del-bloque')  eliminarBloque(bid);
+  if(action === 'edit-item')   abrirModalItem(bid, parseInt(ii));
+  if(action === 'del-item')    eliminarItem(bid, parseInt(ii));
+  if(action === 'add-item')    abrirModalItem(bid, null);
+  if(action === 'edit-lista')  abrirModalListaOp(btn.getAttribute('data-lkey'), parseInt(btn.getAttribute('data-lvi')));
+  if(action === 'del-lista')   eliminarOpcionLista(btn.getAttribute('data-lkey'), parseInt(btn.getAttribute('data-lvi')));
+  if(action === 'add-lista-btn') agregarOpcionDirecta(btn.getAttribute('data-lkey'));
+  if(action === 'add-lista-enter' && e.type === 'keydown' && e.key === 'Enter') agregarOpcionDirecta(btn.getAttribute('data-lkey'));
+  if(e.target && e.target.classList.contains('modal-overlay')) closeModal(e.target.id);
+});
+
+/* INIT */
+(function(){
+  document.getElementById('f-fecha').value=new Date().toISOString().slice(0,10);
+  updateLandingStats();
+  poblarSelects();
+})();
+
+/* IMÁGENES POR ÍTEM — BLOQUE A
+   Las imágenes se comprimen al cargar (max 800px, JPEG 65%) y viven solo en memoria.
+   NO se guardan en localStorage para evitar QuotaExceededError.
+   Se sincronizan a SharePoint si está conectado. */
+var clImgsMap = {};
+var CL_IMG_MAX = 800;   // px máximo por lado
+var CL_IMG_Q   = 0.65;  // calidad JPEG
+
+function clAddImg(uid){ var inp=document.getElementById('finp_'+uid); if(inp)inp.click(); }
+
+function clHandleImg(input,uid){
+  var file=input.files[0]; if(!file) return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    // Comprimir via canvas
+    var tmpImg=new Image();
+    tmpImg.onload=function(){
+      var w=tmpImg.width, h=tmpImg.height;
+      var scale=Math.min(1, CL_IMG_MAX/Math.max(w,h));
+      var canvas=document.createElement('canvas');
+      canvas.width=Math.round(w*scale); canvas.height=Math.round(h*scale);
+      canvas.getContext('2d').drawImage(tmpImg,0,0,canvas.width,canvas.height);
+      var compressed=canvas.toDataURL('image/jpeg', CL_IMG_Q);
+      if(!clImgsMap[uid]) clImgsMap[uid]=[];
+      clImgsMap[uid].push(compressed);
+      clRenderImgs(uid);
+    };
+    tmpImg.src=ev.target.result;
+  };
+  reader.readAsDataURL(file);
+  input.value='';
+}
+function clRenderImgs(uid){
+  var wrap=document.getElementById('imgs_'+uid); if(!wrap)return;
+  var addBtn=document.getElementById('add_'+uid);
+  wrap.innerHTML='';
+  var imgs=clImgsMap[uid]||[];
+  imgs.forEach(function(src,i){
+    var img=document.createElement('img'); img.className='cl-img-thumb'; img.src=src; img.title='Ver (doble clic = eliminar)';
+    img.onclick=function(){clLightbox(src);};
+    img.ondblclick=function(){if(confirm('¿Eliminar esta imagen?')){clImgsMap[uid].splice(i,1);clRenderImgs(uid);}};
+    wrap.appendChild(img);
+  });
+  // Ocultar botón + cuando ya hay imágenes cargadas; mostrarlo si no hay
+  if(addBtn){
+    if(imgs.length>0){ addBtn.classList.add('hidden'); }
+    else { addBtn.classList.remove('hidden'); }
+  }
+}
+function clLightbox(src){
+  var existing=document.getElementById('cl-lightbox'); if(existing)existing.parentNode.removeChild(existing);
+  var box=document.createElement('div'); box.id='cl-lightbox'; box.className='cl-img-lightbox';
+  box.innerHTML='<span class="cl-img-lightbox-close" onclick="this.parentNode.parentNode.removeChild(this.parentNode)">&#x2715;</span><img src="'+src+'">';
+  box.onclick=function(e){if(e.target===box)box.parentNode.removeChild(box);}; document.body.appendChild(box);
+}
+function clGetAllImgs(){ var r={}; Object.keys(clImgsMap).forEach(function(k){if(clImgsMap[k]&&clImgsMap[k].length)r[k]=clImgsMap[k];}); return r; }
+function clRestoreImgs(obj){ clImgsMap=obj||{}; Object.keys(clImgsMap).forEach(function(k){clRenderImgs(k);}); }
+var _origRC=resetChecklist;
+resetChecklist=function(){ clImgsMap={}; _origRC(); };
+
+/* SHAREPOINT SYNC — Checkmaster */
+var SP_SHEET_C='Checkmaster_Registros';
+var SP_HDR_C=['id','codigo','fecha','tipo','equipo','cliente','op','serie','tecnico','supervisor','senior','horaInicio','horaFin','puntaje','nota','resultado','reco','criterios','imgsBlqA'];
+var SP_CFG_C={auth:{clientId:'7117177c-39dd-4b5e-9da0-05ad0a3e0564',authority:'https://login.microsoftonline.com/545d55b5-c270-4f7a-aa5d-b33aaadda9e7',redirectUri:'https://jonas-4.github.io/calidad-resemin/Checkmaster_BoomVigas.html'},cache:{cacheLocation:'sessionStorage',storeAuthStateInCookie:false}};
+var SP_DRIVE_C='https://graph.microsoft.com/v1.0/sites/reseminpe.sharepoint.com:/sites/RESEMIN:/drive/items/18236826-7E11-4409-9F81-3D39D208ED84/workbook/worksheets/';
+var SP_REQ_C={scopes:['Files.ReadWrite','Sites.ReadWrite.All','User.Read']};
+var spAppC=null,spAccC=null,SP_ON_C=false;
+async function spInitC(){try{spAppC=new msal.PublicClientApplication(SP_CFG_C);await spAppC.initialize();var ac=spAppC.getAllAccounts();if(ac.length){spAccC=ac[0];SP_ON_C=true;return true;}}catch(e){}return false;}
+async function spTokenC(){if(!spAppC)return null;try{if(spAccC){var r=await spAppC.acquireTokenSilent(Object.assign({account:spAccC},SP_REQ_C));return r.accessToken;}}catch(e){}try{var r=await spAppC.acquireTokenPopup(SP_REQ_C);spAccC=r.account;SP_ON_C=true;return r.accessToken;}catch(e){return null;}}
+async function spLoginC(){if(!spAppC)return;try{var r=await spAppC.loginPopup(SP_REQ_C);spAccC=r.account;SP_ON_C=true;showToast('Sesion iniciada: '+spAccC.username,'success');var btn=document.getElementById('btn-sp-cm');if(btn){btn.textContent='✓ '+spAccC.username.split('@')[0];btn.style.background='#2F6B2F';btn.style.borderColor='#2F6B2F';}await spInitSheetC();await spLoadC();}catch(e){showToast('Error al iniciar sesion.','error');}}
+async function spReadC(){var tk=await spTokenC();if(!tk)return[];try{var r=await fetch(SP_DRIVE_C+encodeURIComponent(SP_SHEET_C)+'/usedRange',{headers:{Authorization:'Bearer '+tk}});if(!r.ok)return[];var vals=(await r.json()).values||[];if(vals.length<2)return[];var hdr=vals[0];return vals.slice(1).map(function(row){var o={};hdr.forEach(function(h,i){o[h]=row[i]!==undefined&&row[i]!==null?row[i]:'';});if(o.id)o.id=parseInt(o.id)||0;if(o.puntaje)o.puntaje=parseFloat(o.puntaje)||0;['criterios','imgsBlqA'].forEach(function(f){if(o[f]&&typeof o[f]==='string')try{o[f]=JSON.parse(o[f]);}catch(e){o[f]={};} });return o;}).filter(function(r){return r.id;});}catch(e){return[];}}
+async function spFindRowC(id){var tk=await spTokenC();if(!tk)return -1;try{var vals=((await(await fetch(SP_DRIVE_C+encodeURIComponent(SP_SHEET_C)+'/usedRange',{headers:{Authorization:'Bearer '+tk}})).json()).values)||[];for(var i=1;i<vals.length;i++)if(String(vals[i][0])===String(id))return i+1;return -1;}catch(e){return -1;}}
+async function spWriteC(rec){var tk=await spTokenC();if(!tk)return;var row=SP_HDR_C.map(function(h){var v=rec[h];if(v===undefined||v===null)return '';if(typeof v==='object')return JSON.stringify(v);return v;});var ri=await spFindRowC(rec.id);try{var nr;if(ri===-1){var ex=((await(await fetch(SP_DRIVE_C+encodeURIComponent(SP_SHEET_C)+'/usedRange',{headers:{Authorization:'Bearer '+tk}})).json()).values)||[];nr=ex.length+1;}else{nr=ri;}var rng='A'+nr+':'+String.fromCharCode(64+SP_HDR_C.length)+nr;await fetch(SP_DRIVE_C+encodeURIComponent(SP_SHEET_C)+"/range(address='"+rng+"')",{method:'PATCH',headers:{Authorization:'Bearer '+tk,'Content-Type':'application/json'},body:JSON.stringify({values:[row]})});}catch(e){}}
+async function spDeleteC(id){var tk=await spTokenC();if(!tk)return;var ri=await spFindRowC(id);if(ri===-1)return;var rng='A'+ri+':'+String.fromCharCode(64+SP_HDR_C.length)+ri;try{await fetch(SP_DRIVE_C+encodeURIComponent(SP_SHEET_C)+"/range(address='"+rng+"')/clear",{method:'POST',headers:{Authorization:'Bearer '+tk,'Content-Type':'application/json'},body:JSON.stringify({applyTo:'contents'})});}catch(e){}}
+async function spInitSheetC(){var tk=await spTokenC();if(!tk)return;try{var d=await(await fetch(SP_DRIVE_C+encodeURIComponent(SP_SHEET_C)+'/usedRange',{headers:{Authorization:'Bearer '+tk}})).json();if(!d.values||d.values.length===0){var h=SP_HDR_C;await fetch(SP_DRIVE_C+encodeURIComponent(SP_SHEET_C)+"/range(address='A1:"+String.fromCharCode(64+h.length)+"1')",{method:'PATCH',headers:{Authorization:'Bearer '+tk,'Content-Type':'application/json'},body:JSON.stringify({values:[h]})});}}catch(e){}}
+async function spLoadC(){if(!SP_ON_C)return;showToast('Sincronizando con SharePoint...');try{var rows=await spReadC();if(rows.length){var db=lsLoad();db.registros=rows;lsSave(db);if(typeof renderList==='function')renderList();if(typeof updateLandingStats==='function')updateLandingStats();showToast('Datos sincronizados desde SharePoint.');}else{var local=getData();for(var i=0;i<local.length;i++)await spWriteC(local[i]);showToast(local.length?'Datos locales subidos.':'SharePoint sincronizado.');}}catch(e){showToast('Error al sincronizar.','error');}}
+async function spSyncManualC(){var btn=document.getElementById('btn-sp-sync-cm');if(btn){btn.textContent='SYNC...';btn.style.opacity='.6';}if(!SP_ON_C)await spLoginC();else await spLoadC();if(btn){btn.textContent='SYNC';btn.style.opacity='1';}}
+var _origSaveDataC=saveData;
+saveData=function(arr){_origSaveDataC(arr);if(SP_ON_C&&arr&&arr.length){var last=arr[arr.length-1];spWriteC(last).catch(function(){});}};
+(function(){
+  function doInitC(){spInitC().then(function(ok){if(ok){spInitSheetC().then(function(){spLoadC();});var btn=document.getElementById('btn-sp-cm');if(btn){btn.textContent='✓ '+(spAccC?spAccC.username.split('@')[0]:'Conectado');btn.style.background='#2F6B2F';btn.style.borderColor='#2F6B2F';}}});}
+  if(typeof msal==='undefined'){var s=document.createElement('script');s.src='https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js';s.onload=doInitC;document.head.appendChild(s);}
+  else{doInitC();}
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',doInitC);}else{setTimeout(doInitC,500);}
+})();
+
+</script>
+</body>
+</html>
